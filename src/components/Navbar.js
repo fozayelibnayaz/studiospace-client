@@ -71,6 +71,12 @@ export default function Navbar() {
     } catch {
       /* API may be down — still sign out of BetterAuth */
     }
+    // Let the next account re-sync a fresh JWT cookie on login.
+    try {
+      sessionStorage.removeItem("ss-jwt-synced-email");
+    } catch {
+      /* non-blocking */
+    }
     await authClient.signOut();
     toast.success("You have been logged out");
     router.push("/");
