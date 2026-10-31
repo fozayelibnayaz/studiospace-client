@@ -37,24 +37,31 @@ export default function HowBookingWorks() {
           title="Four steps from idea to final frame"
           subtitle="StudioSpace handles the schedule so you can spend your energy on the work."
         />
-        <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((s) => (
-            <li
-              key={s.n}
-              className="card bg-base-100 border border-base-300 p-6 relative overflow-hidden group hover:border-primary/50 transition-colors"
-            >
-              <span className="absolute -top-3 -right-1 font-heading font-bold text-6xl text-base-content/5 select-none">
-                {s.n}
-              </span>
-              <span className="inline-grid place-items-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-primary-content transition-colors">
-                <s.icon size={22} strokeWidth={1.9} />
-              </span>
-              <h3 className="font-heading font-bold text-base">{s.title}</h3>
-              <p className="mt-2 text-sm text-base-content/65 leading-relaxed">{s.copy}</p>
-            </li>
-          ))}
-        </ol>
+        <BookingSteps />
       </div>
     </section>
+  );
+}
+
+/** Steps grid alone — reused on the How It Works page. */
+export function BookingSteps() {
+  return (
+    <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {STEPS.map((s) => (
+        <li
+          key={s.n}
+          className="card bg-base-100 border border-base-300 p-6 relative overflow-hidden group hover:border-primary/50 transition-colors"
+        >
+          <span className="absolute -top-3 -right-1 font-heading font-bold text-6xl text-base-content/5 select-none">
+            {s.n}
+          </span>
+          <span className="inline-grid place-items-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-primary-content transition-colors">
+            <s.icon size={22} strokeWidth={1.9} />
+          </span>
+          <h3 className="font-heading font-bold text-base">{s.title}</h3>
+          <p className="mt-2 text-sm text-base-content/65 leading-relaxed">{s.copy}</p>
+        </li>
+      ))}
+    </ol>
   );
 }
