@@ -17,6 +17,7 @@ const PROTECTED = [
   "/my-listings",
   "/my-bookings",
   "/wishlist",
+  "/studios/edit",
 ];
 
 export function proxy(request) {
@@ -47,5 +48,6 @@ export const config = {
     "/my-listings/:path*",
     "/my-bookings/:path*",
     "/wishlist/:path*",
+    "/studios/edit/:path*",
   ],
 };
