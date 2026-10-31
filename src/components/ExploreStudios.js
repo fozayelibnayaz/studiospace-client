@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Search, X } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -31,7 +31,6 @@ export default function ExploreStudios() {
   const [sort, setSort] = useState(searchParams.get("sort") || "");
   const [studios, setStudios] = useState(null);
   const [loading, setLoading] = useState(true);
-  const first = useRef(true);
 
   useEffect(() => {
     setCategory(urlCategory);
@@ -54,12 +53,8 @@ export default function ExploreStudios() {
     }
   };
 
-  // load whenever filters change (skip the very first render — no query yet)
+  // load on mount and whenever filters change
   useEffect(() => {
-    if (first.current) {
-      first.current = false;
-      return;
-    }
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, sort]);
