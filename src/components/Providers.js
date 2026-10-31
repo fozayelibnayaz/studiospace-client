@@ -1,10 +1,12 @@
 "use client";
 
 import { Toaster } from "react-hot-toast";
+import JwtCookieSync from "./JwtCookieSync";
 
 export default function Providers({ children }) {
   return (
     <>
+      <JwtCookieSync />
       {children}
       <Toaster
         position="top-right"
