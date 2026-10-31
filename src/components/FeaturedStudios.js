@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
@@ -13,14 +13,14 @@ import EmptyState from "./EmptyState";
 export default function FeaturedStudios() {
   const [studios, setStudios] = useState(null);
   const [error, setError] = useState(null);
-  const alive = useRef(true);
 
   useEffect(() => {
+    let cancelled = false; // StrictMode-safe: must be per-effect-run
     apiRequest("/studios?limit=6&sort=rating")
-      .then((d) => alive.current && setStudios(d))
-      .catch((e) => alive.current && setError(e));
+      .then((d) => !cancelled && setStudios(d))
+      .catch((e) => !cancelled && setError(e));
     return () => {
-      alive.current = false;
+      cancelled = true;
     };
   }, []);
 
