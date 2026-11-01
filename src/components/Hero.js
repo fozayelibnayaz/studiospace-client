@@ -19,7 +19,7 @@ export default function Hero() {
     const area = form.area?.value ? form.area.value.trim() : "";
     const params = new URLSearchParams();
     if (q) params.set("search", q);
-    if (area) params.set("search", area);
+    else if (area) params.set("search", area);
     router.push("/studios" + (params.toString() ? "?" + params.toString() : ""));
   };
 
@@ -51,7 +51,7 @@ export default function Hero() {
           Now booking across Bangladesh
         </p>
 
-        <h1 className="text-[clamp(2.2rem,9vw,7rem)] sm:text-[clamp(3rem,10vw,8rem)] font-extrabold leading-[0.92] tracking-[-0.05em] text-white mb-6 drop-shadow-2xl">
+        <h1 className="text-[clamp(2rem,7vw,5rem)] sm:text-[clamp(3rem,10vw,7rem)] font-extrabold leading-[0.92] tracking-[-0.05em] text-white mb-6 drop-shadow-2xl break-words">
           Find the space.
           <br />
           <span className="italic font-serif text-amber-300">Make something extraordinary.</span>
@@ -67,7 +67,7 @@ export default function Hero() {
             <Search size={18} className="text-amber-300 shrink-0" />
             <div className="min-w-0 flex-1">
               <span className="block text-[10px] font-bold uppercase tracking-wider text-amber-100/60">What are you making?</span>
-              <input name="q" placeholder="Photo, film, podcast…" className="w-full bg-transparent text-sm outline-none text-white placeholder:text-white/40" />
+              <input name="q" placeholder="Photo, film..." className="w-full bg-transparent text-sm outline-none text-white placeholder:text-white/40" />
             </div>
           </label>
 
