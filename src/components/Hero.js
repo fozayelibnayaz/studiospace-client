@@ -32,33 +32,19 @@ export default function Hero() {
 
   return (
     <section className="ss-hero ss-grain" aria-label="StudioSpace introduction">
-      {/* Media layer: dimmed, tinted by the amber streaks above it */}
-      {reduceMotion ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src="/media/hero-poster.jpg"
-          alt=""
-          className="ss-media"
-          fetchPriority="high"
-        />
-      ) : (
-        <video
-          className="ss-media"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/media/hero-poster.jpg"
-          aria-hidden="true"
-          tabIndex={-1}
-        >
-          <source src="/media/hero.webm" type="video/webm" />
-          <source src="/media/hero.mp4" type="video/mp4" />
-        </video>
-      )}
+      {/* Static image background — dimmed + tinted so text stays crisp */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/media/hero-poster.jpg"
+        alt=""
+        className="ss-media"
+        fetchPriority="high"
+      />
 
-      {/* Raycast-style diagonal amber light bars + theme-aware vignette */}
+      {/* Strong dark scrim for guaranteed text visibility */}
+      <div className="ss-scrim" aria-hidden="true" />
+
+      {/* Raycast-style diagonal amber light bars */}
       <div className="ss-streaks" aria-hidden="true">
         <i /><i /><i /><i /><i />
       </div>
