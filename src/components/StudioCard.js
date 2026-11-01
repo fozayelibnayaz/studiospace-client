@@ -28,7 +28,7 @@ const areaOf = (studio) => {
  * Image-led, quiet metadata, taka price. The heart sits outside the link
  * so the card stays keyboard-accessible and never nests controls.
  */
-export default function StudioCard({ studio }) {
+function StudioCard({ studio, bookingOpen, setBookingOpen }) {
   const [bookingOpen, setBookingOpen] = useState(false);
   return (
     <article className="group relative flex h-full flex-col">
@@ -94,6 +94,17 @@ export default function StudioCard({ studio }) {
         </div>
       </div>
     </article>
-    <BookingModal studio={studio} open={bookingOpen} onClose={() => setBookingOpen(false)} />
   );
 }
+
+function StudioCardWrapper({ studio }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <StudioCardInner studio={studio} bookingOpen={open} setBookingOpen={setOpen} />
+      <BookingModal studio={studio} open={open} onClose={() => setOpen(false)} />
+    </>
+  );
+}
+
+export default StudioCardWrapper;
