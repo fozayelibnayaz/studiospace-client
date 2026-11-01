@@ -32,10 +32,10 @@ const NAV_LINKS = [
 
 const USER_MENU = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/add-studio", label: "Add a studio", icon: PlusCircle },
-  { href: "/my-listings", label: "My listings", icon: FolderOpen },
-  { href: "/my-bookings", label: "My bookings", icon: CalendarCheck },
-  { href: "/booking-requests", label: "Booking requests", icon: Inbox },
+  { href: "/add-studio", label: "Add New Studio", icon: PlusCircle },
+  { href: "/my-listings", label: "My Studio Listings", icon: FolderOpen },
+  { href: "/my-bookings", label: "My Bookings", icon: CalendarCheck },
+  { href: "/booking-requests", label: "Booking Requests", icon: Inbox },
   { href: "/wishlist", label: "Wishlist", icon: Heart },
 ];
 
@@ -220,7 +220,7 @@ export default function Navbar() {
                         onClick={handleLogout}
                         className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-error hover:bg-error/10 transition-colors"
                       >
-                        <LogOut size={15} /> Log out
+                        <LogOut size={15} /> Logout
                       </button>
                     </li>
                   </ul>
@@ -307,7 +307,7 @@ export default function Navbar() {
                     onClick={handleLogout}
                     className="w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm text-error hover:bg-error/10"
                   >
-                    <LogOut size={16} /> Log out
+                    <LogOut size={16} /> Logout
                   </button>
                 </li>
               </ul>

@@ -38,7 +38,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero-shell grain" aria-label="StudioSpace introduction">
+    <section className="hero-shell grain relative" aria-label="StudioSpace introduction">
       {reduceMotion ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -64,18 +64,25 @@ export default function Hero() {
         </video>
       )}
 
-      {/* Single scrim: darkens the lens left→right, then fades into the page */}
+      {/* Scrim: cinematic darkening + soft bottom fade, no second layer */}
       <div className="hero-scrim" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
+
+      {/* 3D ambience: soft amber light mass behind the headline */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full opacity-70 blur-[130px]"
+        style={{ background: "radial-gradient(circle, rgba(231,155,35,0.34) 0%, rgba(231,155,35,0) 68%)" }}
+      />
 
       <div className="relative container-x pt-28 pb-16 sm:pt-32 md:pt-36 md:pb-20 flex min-h-[min(92vh,880px)] flex-col justify-center">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.5fr_1fr]">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.6fr_1fr]">
           {/* Headline block */}
           <div className="max-w-4xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-3.5 py-1.5 text-[11px] font-medium tracking-[0.16em] uppercase text-[#f1eee5]/80 backdrop-blur-sm">
-              <span className="relative flex w-1.5 h-1.5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-[#e79b23] opacity-75 animate-ping" />
-                <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-[#e79b23]" />
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[#e79b23] opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#e79b23]" />
               </span>
               Now booking across Bangladesh
             </p>
@@ -98,13 +105,13 @@ export default function Hero() {
                 href="/studios"
                 className="inline-flex h-12 items-center gap-2 rounded-full bg-[#f7f3e9] px-7 text-sm font-medium text-[#141311] transition-colors hover:bg-white"
               >
-                Explore studios <ArrowRight size={16} />
+                Explore Studios <ArrowRight size={16} />
               </Link>
               <Link
                 href="/add-studio"
                 className="inline-flex h-12 items-center gap-2 rounded-full border border-white/25 bg-white/[0.04] px-7 text-sm font-medium text-[#f7f3e9] backdrop-blur-sm transition-colors hover:bg-white/10"
               >
-                <Play size={14} /> List your space
+                <Play size={14} /> Host Your Space
               </Link>
             </div>
 
@@ -127,7 +134,7 @@ export default function Hero() {
 
           {/* Floating "now booking" card */}
           <div className="hidden justify-self-end lg:block">
-            <div className="float-slow w-64 rounded-2xl border border-white/15 bg-black/35 p-4 text-[#f1eee5] backdrop-blur-xl">
+            <div className="w-64 rounded-2xl border border-white/15 bg-black/35 p-4 text-[#f1eee5] backdrop-blur-xl">
               <div className="flex items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

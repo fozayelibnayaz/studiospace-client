@@ -80,7 +80,7 @@ export default function StudioCard({ studio }) {
             href={`/studios/${studio._id}`}
             className="inline-flex items-center gap-1 text-[13px] font-medium text-muted hover:text-primary transition-colors"
           >
-            View <ArrowUpRight size={14} />
+            View details <ArrowUpRight size={14} />
           </Link>
         </div>
       </div>

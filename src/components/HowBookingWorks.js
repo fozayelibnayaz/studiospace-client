@@ -5,25 +5,25 @@ const STEPS = [
   {
     icon: Search,
     n: "01",
-    title: "Search the right setup",
+    title: "Discover Spaces",
     copy: "Filter by craft, city, capacity and budget. Every listing shows the real room, gear list and hourly rate in taka — no guesswork, no phone tag.",
   },
   {
     icon: ShieldCheck,
     n: "02",
-    title: "Know what you're getting",
-    copy: "Clear rates, verified amenities, honest reviews and a refundable deposit shown upfront. The room in the photo is the room you book.",
+    title: "Select Shoot Hours",
+    copy: "Know what you're getting: clear rates, verified amenities, honest reviews and a refundable deposit shown upfront. The room in the photo is the room you book.",
   },
   {
     icon: CalendarCheck,
     n: "03",
-    title: "Book securely",
+    title: "Book Instantly",
     copy: "Reserve exact hours with transparent BDT pricing. Overlapping requests are rejected server-side, so your slot stays exclusively yours.",
   },
   {
     icon: DoorOpen,
     n: "04",
-    title: "Walk in ready",
+    title: "Create & Produce",
     copy: "Settle with the host by bKash, Nagad or cash on arrival, coordinate load-in, and download your PDF invoice from My Bookings.",
   },
 ];

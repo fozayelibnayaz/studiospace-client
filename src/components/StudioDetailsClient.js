@@ -328,7 +328,7 @@ export default function StudioDetailsClient({ studio }) {
                     onClick={goBook}
                     className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-neutral text-[14px] font-medium text-neutral-content transition-opacity hover:opacity-90"
                   >
-                    <CalendarPlus size={17} /> Book this studio
+                    <CalendarPlus size={17} /> Book Workspace Now
                   </button>
                 )}
 

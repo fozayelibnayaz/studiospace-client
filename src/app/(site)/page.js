@@ -73,13 +73,13 @@ export default function HomePage() {
                 href="/studios"
                 className="inline-flex items-center gap-2 rounded-full bg-[#f7f3e9] px-6 h-12 text-sm font-medium text-[#141311] hover:bg-white transition-colors"
               >
-                Explore studios <ArrowRight size={16} />
+                Explore Studios <ArrowRight size={16} />
               </Link>
               <Link
                 href="/add-studio"
                 className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 h-12 text-sm font-medium text-[#f7f3e9] hover:bg-white/10 transition-colors"
               >
-                List your space
+                Host Your Space
               </Link>
             </div>
           </div>
