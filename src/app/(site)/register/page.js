@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import RegisterForm from "./RegisterForm";
+import AuthShell from "@/components/AuthShell";
 
 export const metadata = {
   title: "Register",
@@ -10,22 +11,27 @@ export const metadata = {
 
 export default function RegisterPage() {
   return (
-    <div className="section-pad px-4 bg-base-200/40">
+    <AuthShell
+      image="/studios/gulshan-glasshouse.jpg"
+      eyebrow="For makers & hosts"
+      quote="“The room in the photo is the room you book. That should not be a radical idea.”"
+      byline="StudioSpace · Dhaka, Bangladesh"
+    >
       <Suspense
         fallback={
-          <div className="w-full max-w-md mx-auto card bg-base-100 border border-base-300 shadow-md h-[28rem]">
-            <div className="card-body justify-center gap-4">
-              <div className="skeleton h-10 w-44 mx-auto self-center" />
-              <div className="skeleton h-5 w-64" />
-              <div className="skeleton h-12 w-full" />
-              <div className="skeleton h-12 w-full" />
-              <div className="skeleton h-12 w-full" />
-            </div>
+          <div className="mx-auto w-full max-w-sm space-y-4">
+            <div className="skeleton h-3 w-28 rounded-full" />
+            <div className="skeleton h-9 w-64 rounded-md" />
+            <div className="skeleton h-4 w-full rounded-md" />
+            <div className="skeleton h-12 w-full rounded-xl" />
+            <div className="skeleton h-12 w-full rounded-xl" />
+            <div className="skeleton h-12 w-full rounded-xl" />
+            <div className="skeleton h-12 w-full rounded-full" />
           </div>
         }
       >
         <RegisterForm />
       </Suspense>
-    </div>
+    </AuthShell>
   );
 }

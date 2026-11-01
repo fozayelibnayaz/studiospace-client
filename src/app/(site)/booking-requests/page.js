@@ -3,12 +3,11 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Inbox, CircleCheck, PackageCheck } from "lucide-react";
+import { Inbox, CircleCheck, PackageCheck, ArrowUpRight } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { authClient } from "@/lib/auth-client";
 import { apiRequest } from "@/lib/api";
-import { BOOKING_STATUS_STYLES } from "@/lib/constants";
 import { bdt } from "@/lib/format";
 import RequireSession from "@/components/RequireSession";
 import EmptyState from "@/components/EmptyState";
@@ -21,6 +20,16 @@ export default function BookingRequestsPage() {
     </RequireSession>
   );
 }
+
+const badgeClass = (status) => {
+  const map = {
+    Pending: "border-[#e79b23]/35 bg-[#e79b23]/12 text-[#a86a12]",
+    Confirmed: "border-success/35 bg-success/12 text-success",
+    Completed: "border-info/35 bg-info/12 text-info",
+    Cancelled: "border-error/35 bg-error/12 text-error",
+  };
+  return map[status] || "border-base-content/15 text-muted";
+};
 
 function Inner() {
   const router = useRouter();
@@ -81,127 +90,133 @@ function Inner() {
   };
 
   return (
-    <div className="section-pad px-4 sm:px-6 max-w-5xl mx-auto">
-      <header className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-2 flex items-center gap-2">
-          <Inbox size={15} /> Host inbox
-        </p>
-        <h1 className="font-heading text-3xl md:text-4xl font-bold">Booking Requests</h1>
-        <p className="mt-2 text-sm md:text-base text-base-content/60 leading-relaxed">
-          Every reservation made against a studio you own, newest first. It is
-          <b> you</b> who carries each booking forward: accept it while it is
-          Pending, then mark it Completed once the session happens.
-        </p>
-      </header>
+    <div className="pt-28 pb-16 md:pt-32 md:pb-24">
+      <div className="container-x">
+        <header className="border-b border-base-content/10 pb-8">
+          <p className="eyebrow mb-4 text-primary">Host inbox</p>
+          <h1 className="display text-[2rem] sm:text-4xl md:text-[3rem]">
+            Booking <span className="serif italic">requests.</span>
+          </h1>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+            Every reservation made against a studio you own, newest first. Accept
+            it while it&apos;s pending, then mark it completed once the session
+            happens.
+          </p>
+        </header>
 
-      <div className="alert alert-info mb-6">
-        <span className="text-sm leading-relaxed">
-          <b>Lifecycle:</b> Pending (customer booked) → <b>Confirmed</b> (you
-          accept, fees settled) → <b>Completed</b> (session delivered).
-          Customers can cancel their Pending bookings from their side.
-        </span>
-      </div>
-
-      {bookings === null ? (
-        <div className="space-y-4">
-          {Array.from({ length: 2 }, (_, i) => (
-            <div key={i} className="card bg-base-100 border border-base-300 p-4 flex gap-4">
-              <div className="skeleton w-40 h-28 rounded-xl" />
-              <div className="flex-1 space-y-3 py-1">
-                <div className="skeleton h-5 w-2/3" />
-                <div className="skeleton h-4 w-1/2" />
-                <div className="skeleton h-9 w-44" />
-              </div>
-            </div>
-          ))}
+        <div className="mt-6 rounded-2xl border border-base-content/10 bg-base-200/50 px-5 py-4 text-[12.5px] leading-relaxed text-muted">
+          <b className="text-base-content">Lifecycle:</b> Pending (customer booked)
+          → <b className="text-base-content">Confirmed</b> (you accept, fees
+          settled) → <b className="text-base-content">Completed</b> (session
+          delivered). Customers can cancel their pending bookings from their side.
         </div>
-      ) : bookings.length === 0 ? (
-        <EmptyState
-          icon={Inbox}
-          title="No booking requests yet"
-          message="Once creators reserve hours in your studios, they appear here for you to confirm and track."
-          ctaLabel="View My Listings"
-          ctaHref="/my-listings"
-        />
-      ) : (
-        <ul className="space-y-4">
-          {bookings.map((b) => (
-            <li
-              key={b._id}
-              className="card bg-base-100 border border-base-300 shadow-sm overflow-hidden"
-            >
-              <div className="flex flex-col sm:flex-row gap-4 p-4">
-                <Link href={`/studios/${b.studioId}`} className="shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={b.studioImage}
-                    alt={b.studioTitle}
-                    className="w-full h-40 sm:h-28 sm:w-44 object-cover rounded-xl border border-base-300"
-                  />
-                </Link>
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <h3 className="font-heading font-bold text-lg truncate">
-                      {b.studioTitle}
-                    </h3>
-                    <span
-                      className={`badge badge-sm font-semibold ${
-                        BOOKING_STATUS_STYLES[b.status] || "badge-ghost"
-                      }`}
-                    >
-                      {b.status}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm text-base-content/65">
-                    {b.customerName} · {b.customerEmail}
-                  </p>
-                  <p className="text-xs text-base-content/55">
-                    {b.date} · {b.startTime}–{b.endTime} ({b.totalHours} h) ·{" "}
-                    <b className="text-base-content/75">{bdt(b.totalCost, { decimals: true })}</b>
-                  </p>
+
+        {bookings === null ? (
+          <ul className="mt-8 divide-y divide-base-content/10 border-y border-base-content/10">
+            {Array.from({ length: 2 }, (_, i) => (
+              <li key={i} className="flex gap-4 py-5">
+                <div className="skeleton h-24 w-36 rounded-xl" />
+                <div className="flex-1 space-y-3 py-1">
+                  <div className="skeleton h-5 w-2/3 rounded-md" />
+                  <div className="skeleton h-4 w-1/2 rounded-md" />
+                  <div className="skeleton h-9 w-44 rounded-full" />
                 </div>
-                <div className="flex sm:flex-col gap-2 justify-end items-stretch">
-                  {b.status === "Pending" && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setPendingAction({
-                          booking: b,
-                          next: "Confirmed",
-                          title: "Confirm this booking?",
-                          message: `"${b.customerName}" will be holding ${b.studioTitle} on ${b.date} (${b.startTime}–${b.endTime}). Settle the fee off-platform, then confirm.`,
-                        })
-                      }
-                      className="btn btn-primary btn-sm"
-                    >
-                      <CircleCheck size={14} /> Confirm Booking
-                    </button>
-                  )}
-                  {b.status === "Confirmed" && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setPendingAction({
-                          booking: b,
-                          next: "Completed",
-                          title: "Mark session as completed?",
-                          message: `The ${b.date} session (${b.startTime}–${b.endTime}) in ${b.studioTitle} ran as planned.`,
-                        })
-                      }
-                      className="btn btn-outline btn-sm"
-                    >
-                      <PackageCheck size={14} /> Mark Completed
-                    </button>
-                  )}
-                  <Link href={`/studios/${b.studioId}`} className="btn btn-ghost btn-sm">
-                    View studio
+              </li>
+            ))}
+          </ul>
+        ) : bookings.length === 0 ? (
+          <EmptyState
+            icon={Inbox}
+            title="No booking requests yet"
+            message="Once creators reserve hours in your studios, they appear here for you to confirm and track."
+            ctaLabel="View my listings"
+            ctaHref="/my-listings"
+          />
+        ) : (
+          <ul className="mt-8 divide-y divide-base-content/10 border-y border-base-content/10">
+            {bookings.map((b) => (
+              <li key={b._id} className="py-5">
+                <div className="flex flex-col gap-4 sm:flex-row">
+                  <Link
+                    href={`/studios/${b.studioId}`}
+                    className="shrink-0 overflow-hidden rounded-xl bg-base-200"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={b.studioImage}
+                      alt={b.studioTitle}
+                      className="h-40 w-full object-cover sm:h-24 sm:w-36"
+                    />
                   </Link>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <h3 className="font-heading text-[15px] font-medium">
+                        {b.studioTitle}
+                      </h3>
+                      <span
+                        className={`rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] ${badgeClass(
+                          b.status
+                        )}`}
+                      >
+                        {b.status}
+                      </span>
+                    </div>
+                    <p className="mt-1.5 text-[13px] text-muted">
+                      {b.customerName} · {b.customerEmail}
+                    </p>
+                    <p className="text-[12px] text-faint">
+                      {b.date} · {b.startTime}–{b.endTime} ({b.totalHours} h) ·{" "}
+                      <b className="font-semibold text-base-content/80">
+                        {bdt(b.totalCost, { decimals: true })}
+                      </b>
+                    </p>
+                  </div>
+                  <div className="flex items-stretch justify-end gap-2 sm:flex-col">
+                    {b.status === "Pending" && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setPendingAction({
+                            booking: b,
+                            next: "Confirmed",
+                            title: "Confirm this booking?",
+                            message: `"${b.customerName}" will be holding ${b.studioTitle} on ${b.date} (${b.startTime}–${b.endTime}). Settle the fee off-platform, then confirm.`,
+                          })
+                        }
+                        className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full bg-neutral px-3.5 text-[12px] font-medium text-neutral-content transition-opacity hover:opacity-90"
+                      >
+                        <CircleCheck size={13} /> Confirm
+                      </button>
+                    )}
+                    {b.status === "Confirmed" && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setPendingAction({
+                            booking: b,
+                            next: "Completed",
+                            title: "Mark session as completed?",
+                            message: `The ${b.date} session (${b.startTime}–${b.endTime}) in ${b.studioTitle} ran as planned.`,
+                          })
+                        }
+                        className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-base-content/15 px-3.5 text-[12px] font-medium transition-colors hover:bg-base-content/5"
+                      >
+                        <PackageCheck size={13} /> Mark completed
+                      </button>
+                    )}
+                    <Link
+                      href={`/studios/${b.studioId}`}
+                      className="inline-flex h-9 items-center justify-center gap-1 rounded-full px-3.5 text-[12px] font-medium text-muted transition-colors hover:text-primary"
+                    >
+                      View studio <ArrowUpRight size={12} />
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
       <ConfirmModal
         open={Boolean(pendingAction)}

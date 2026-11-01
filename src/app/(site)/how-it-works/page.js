@@ -9,9 +9,9 @@ import {
   Banknote,
   BadgeCheck,
   ShieldCheck,
+  MessagesSquare,
 } from "lucide-react";
 
-import SectionHeading from "@/components/SectionHeading";
 import { BookingSteps } from "@/components/HowBookingWorks";
 import HostGuarantee from "@/components/HostGuarantee";
 
@@ -32,67 +32,89 @@ const PILLARS = [
     copy: "The server rejects overlapping pending or confirmed slots instantly, so the calendar you see is the calendar that is true.",
   },
   {
-    icon: MessageCircleHeartSafe,
+    icon: MessagesSquare,
     title: "Support in hours, not days",
     copy: "Creators work odd hours; so do we. Support replies around the clock in Bangla or English, and hosts get payout help by bKash or bank transfer whenever they need it.",
   },
 ];
 
-function MessageCircleHeartSafe(props) {
-  // alias keeps the icon vocabulary local without another top-level import
-  return <BadgeCheck {...props} />;
-}
+const CATEGORY_LINKS = [
+  [Camera, "Photo Studio"],
+  [Clapperboard, "Film Stage"],
+  [Mic, "Podcast Lounge"],
+  [Music, "Music Suite"],
+  [Palette, "Art Workshop"],
+];
+
+export const metadata = {
+  title: "How it works",
+  description:
+    "How booking works on StudioSpace: search a verified room, reserve exact hours in BDT, settle with bKash or Nagad, and walk in ready.",
+};
 
 export default function HowItWorksPage() {
   return (
     <>
       {/* Hero copy */}
-      <section className="bg-primary/5 border-b border-base-300/50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-24 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3">
+      <section className="border-b border-base-content/10 bg-base-200/40">
+        <div className="container-x pt-36 pb-16 text-center md:pt-44 md:pb-24">
+          <p className="eyebrow mb-5 justify-center text-primary">
             How StudioSpace works
           </p>
-          <h1 className="font-heading text-3xl md:text-5xl font-bold leading-tight">
-            From idea to invoice, without the phone tag
+          <h1 className="display mx-auto max-w-3xl text-[2.3rem] leading-[0.99] sm:text-5xl md:text-[4rem] text-balance">
+            From idea to invoice,{" "}
+            <span className="serif italic">without the phone tag.</span>
           </h1>
-          <p className="mt-4 text-sm md:text-base text-base-content/70 leading-relaxed">
-            StudioSpace is Bangladesh's peer-to-peer marketplace for creative
-            production spaces. Owners publish their rooms with real taka
-            rates; creators discover them, reserve exact hours and produce the
-            work. Here is the whole journey.
+          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted md:text-base">
+            StudioSpace is Bangladesh&apos;s peer-to-peer marketplace for
+            creative production spaces. Owners publish their rooms with real
+            taka rates; creators discover them, reserve exact hours and produce
+            the work. Here is the whole journey.
           </p>
         </div>
       </section>
 
       {/* Four steps */}
-      <section className="section-pad px-4 sm:px-6 max-w-7xl mx-auto">
-        <SectionHeading
-          eyebrow="The flow"
-          title="Booking in four steps"
-          subtitle="The same steps whether you are shooting a lookbook, cutting a pilot episode, tracking an EP or glazing mugs."
-        />
+      <section className="section container-x">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-xl">
+            <p className="eyebrow mb-4 text-primary">The flow</p>
+            <h2 className="display text-[1.8rem] sm:text-4xl md:text-[2.9rem]">
+              Booking in <span className="serif italic">four steps.</span>
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              The same steps whether you are shooting a lookbook, cutting a pilot
+              episode, tracking an EP or glazing mugs.
+            </p>
+          </div>
+          <span className="hidden text-[11px] font-semibold uppercase tracking-[0.2em] text-faint md:block">
+            04 steps · one afternoon
+          </span>
+        </div>
         <BookingSteps />
       </section>
 
-      {/* What we stand for */}
-      <section className="section-pad px-4 sm:px-6 bg-base-200/50 border-y border-base-300/50">
-        <div className="max-w-7xl mx-auto">
-          <SectionHeading
-            eyebrow="Why it holds together"
-            title="Four guarantees underneath every booking"
-          />
-          <div className="grid gap-5 sm:grid-cols-2">
+      {/* Guarantees */}
+      <section className="section border-y border-base-content/10 bg-base-200/50">
+        <div className="container-x">
+          <div className="mb-10 max-w-2xl">
+            <p className="eyebrow mb-4 text-primary">Why it holds together</p>
+            <h2 className="display text-[1.8rem] sm:text-4xl md:text-[2.9rem]">
+              Four guarantees{" "}
+              <span className="serif italic">under every booking.</span>
+            </h2>
+          </div>
+          <div className="grid gap-px overflow-hidden rounded-2xl border border-base-content/10 bg-base-content/10 sm:grid-cols-2">
             {PILLARS.map((p) => (
-              <div
-                key={p.title}
-                className="flex gap-4 card bg-base-100 border border-base-300 p-6 items-start"
-              >
-                <span className="shrink-0 grid place-items-center w-11 h-11 rounded-xl bg-primary/10 text-primary">
-                  <p.icon size={20} strokeWidth={1.9} />
+              <div key={p.title} className="flex items-start gap-4 bg-base-100 p-7">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-base-content/10 text-[#e79b23]">
+                  <p.icon size={18} strokeWidth={1.8} />
                 </span>
                 <div>
-                  <h3 className="font-heading font-bold">{p.title}</h3>
-                  <p className="mt-2 text-sm text-base-content/65 leading-relaxed">
+                  <h3 className="font-heading text-[15px] font-medium">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-[13px] leading-relaxed text-muted">
                     {p.copy}
                   </p>
                 </div>
@@ -103,28 +125,30 @@ export default function HowItWorksPage() {
       </section>
 
       {/* Categories strip */}
-      <section className="section-pad px-4 sm:px-6 max-w-7xl mx-auto">
-        <SectionHeading
-          eyebrow="Five crafts, one platform"
-          title="Which space do you need?"
-        />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {[
-            [Camera, "Photo Studio"],
-            [Clapperboard, "Film Stage"],
-            [Mic, "Podcast Lounge"],
-            [Music, "Music Suite"],
-            [Palette, "Art Workshop"],
-          ].map(([Icon, label]) => (
+      <section className="section container-x">
+        <div className="mb-10 max-w-2xl">
+          <p className="eyebrow mb-4 text-primary">Five crafts, one platform</p>
+          <h2 className="display text-[1.8rem] sm:text-4xl md:text-[2.9rem]">
+            Which space <span className="serif italic">do you need?</span>
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+          {CATEGORY_LINKS.map(([Icon, label]) => (
             <Link
               key={label}
               href={`/studios?category=${encodeURIComponent(label)}`}
-              className="group card bg-base-100 border border-base-300 hover:border-primary/60 transition-colors items-center text-center p-6 gap-2"
+              className="group flex flex-col items-center gap-3 rounded-2xl border border-base-content/10 p-6 text-center transition-colors hover:border-[#e79b23]/50 hover:bg-base-200/40"
             >
-              <Icon size={26} strokeWidth={1.7} className="text-primary" />
-              <span className="font-heading font-semibold text-sm">{label}</span>
-              <span className="text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                Browse <ArrowRight size={12} />
+              <Icon
+                size={26}
+                strokeWidth={1.6}
+                className="text-[#e79b23]"
+              />
+              <span className="font-heading text-[13px] font-medium">
+                {label}
+              </span>
+              <span className="inline-flex items-center gap-1 text-[11px] text-muted opacity-0 transition-opacity group-hover:opacity-100">
+                Browse <ArrowRight size={11} />
               </span>
             </Link>
           ))}
@@ -135,24 +159,38 @@ export default function HowItWorksPage() {
       <HostGuarantee />
 
       {/* CTA */}
-      <section className="px-4 sm:px-6 pb-16 md:pb-24 max-w-7xl mx-auto">
-        <div className="card bg-primary text-primary-content p-8 md:p-12 text-center">
-          <h2 className="font-heading text-2xl md:text-3xl font-bold">
-            Ready to put your room to work?
-          </h2>
-          <p className="mt-2 opacity-80 text-sm md:text-base">
-            List your studio in minutes, or find your next shoot day now.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link href="/studios" className="btn btn-neutral">
-              Explore Studios
-            </Link>
-            <Link
-              href="/add-studio"
-              className="btn btn-outline border-primary-content/40 hover:bg-primary-content/10"
-            >
-              Host Your Space
-            </Link>
+      <section className="container-x pb-16 md:pb-24">
+        <div className="relative overflow-hidden rounded-[2rem] bg-[#0d0d0b] px-6 py-14 text-center text-[#f1eee5] sm:px-12 md:py-20">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/studios/chattogram-stage.jpg"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0b] via-[#0d0d0b]/70 to-[#0d0d0b]/40" />
+          <div className="relative mx-auto max-w-xl">
+            <h2 className="display text-3xl sm:text-5xl">
+              Ready to put your room{" "}
+              <span className="serif italic">to work?</span>
+            </h2>
+            <p className="mt-4 text-sm text-[#f1eee5]/65">
+              List your studio in minutes, or find your next shoot day now.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/studios"
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#f1eee5] px-6 text-sm font-medium text-[#141311] transition-colors hover:bg-white"
+              >
+                Explore studios <ArrowRight size={15} />
+              </Link>
+              <Link
+                href="/add-studio"
+                className="inline-flex h-12 items-center gap-2 rounded-full border border-white/25 px-6 text-sm font-medium transition-colors hover:bg-white/10"
+              >
+                Host your space
+              </Link>
+            </div>
           </div>
         </div>
       </section>

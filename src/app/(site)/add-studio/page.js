@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { PlusCircle } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { authClient } from "@/lib/auth-client";
@@ -52,24 +51,22 @@ function Inner() {
   };
 
   return (
-    <div className="section-pad px-4 sm:px-6 max-w-3xl mx-auto">
-      <header className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-2 flex items-center gap-2">
-          <PlusCircle size={15} /> Host a space
-        </p>
-        <h1 className="font-heading text-3xl md:text-4xl font-bold">Add New Studio</h1>
-        <p className="mt-2 text-sm md:text-base text-base-content/60 leading-relaxed">
-          List your creative space with honest detail — clear rates, real photos
-          and a candid overview convert far better than superlatives.
-        </p>
-      </header>
+    <div className="pt-28 pb-16 md:pt-32 md:pb-24">
+      <div className="container-x max-w-3xl">
+        <header className="border-b border-base-content/10 pb-8">
+          <p className="eyebrow mb-4 text-primary">Host a space</p>
+          <h1 className="display text-[2rem] sm:text-4xl md:text-[3rem]">
+            Add a <span className="serif italic">studio.</span>
+          </h1>
+          <p className="mt-3 text-sm leading-relaxed text-muted md:text-[15px]">
+            List your creative space with honest detail — clear rates, real
+            photos and a candid overview convert far better than superlatives.
+          </p>
+        </header>
 
-      <div className="card bg-base-100 border border-base-300 shadow-sm p-6 md:p-8">
-        <StudioForm
-          onSubmit={submit}
-          submitLabel="Create Listing"
-          busy={busy}
-        />
+        <div className="mt-8 rounded-[1.5rem] border border-base-content/10 p-6 md:p-8">
+          <StudioForm onSubmit={submit} submitLabel="Create listing" busy={busy} />
+        </div>
       </div>
     </div>
   );

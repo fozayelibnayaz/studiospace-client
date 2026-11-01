@@ -6,8 +6,12 @@ import { ImagePlus, LoaderCircle, Link2, Plus, X } from "lucide-react";
 import { CATEGORIES, AMENITY_OPTIONS } from "@/lib/constants";
 import { uploadToImgbb } from "@/lib/api";
 
-const field = "input input-bordered w-full bg-base-200/50";
-const labelTx = "label-text text-sm font-medium";
+const field =
+  "h-11 w-full rounded-xl border border-base-content/15 bg-base-200/40 px-3.5 text-sm text-base-content outline-none transition-colors placeholder:text-faint focus:border-[#e79b23] focus:bg-base-100";
+const labelTx =
+  "mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-faint";
+const previewable = (src) =>
+  typeof src === "string" && (src.startsWith("http") || src.startsWith("/"));
 
 function emptyStudio() {
   return {
@@ -27,17 +31,18 @@ function emptyStudio() {
  * Shared studio form — Add New Studio and Update Studio (pre-filled).
  * Host name / email are rendered read-only from the session by the parent.
  */
-export default function StudioForm({ initial, onSubmit, submitLabel = "Create Listing", busy = false }) {
+export default function StudioForm({
+  initial,
+  onSubmit,
+  submitLabel = "Create listing",
+  busy = false,
+}) {
   const [form, setForm] = useState(() => ({ ...emptyStudio(), ...(initial || {}) }));
   const [customAmenity, setCustomAmenity] = useState("");
   const [uploading, setUploading] = useState(false);
   const [inlineError, setInlineError] = useState("");
 
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
-  const numeric = useMemo(
-    () => new Set(["hourlyRate", "securityDeposit", "maxCapacity"]),
-    []
-  );
 
   const toggleAmenity = (a) => {
     setForm((f) => ({
@@ -63,7 +68,6 @@ export default function StudioForm({ initial, onSubmit, submitLabel = "Create Li
     try {
       const url = await uploadToImgbb(file);
       set("image", url);
-      document.getElementById("studio-image-file")?.classList.remove("file-input-error");
     } catch (err) {
       setInlineError(err.message);
     } finally {
@@ -112,189 +116,208 @@ export default function StudioForm({ initial, onSubmit, submitLabel = "Create Li
   };
 
   return (
-    <form onSubmit={submit} className="space-y-6" noValidate>
+    <form onSubmit={submit} className="space-y-8" noValidate>
       {inlineError && (
-        <p role="alert" className="text-sm text-error font-medium bg-error/10 border border-error/30 rounded-lg px-4 py-2.5">
+        <p
+          role="alert"
+          className="rounded-xl border border-error/25 bg-error/10 px-4 py-2.5 text-[13px] font-medium text-error"
+        >
           {inlineError}
         </p>
       )}
 
       {/* Basics */}
-      <section className="grid sm:grid-cols-2 gap-4">
-        <div className="sm:col-span-2">
-          <label className="label pb-1" htmlFor="sf-title">
-            <span className={labelTx}>Title</span>
-          </label>
-          <input
-            id="sf-title"
-            className={field}
-            value={form.title}
-            onChange={(e) => set("title", e.target.value)}
-            placeholder="e.g. Gulshan Glasshouse Photo Studio"
-            maxLength={90}
-          />
-        </div>
+      <fieldset>
+        <legend className="mb-4 font-heading text-[15px] font-medium">
+          The basics
+        </legend>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="sm:col-span-2">
+            <label className={labelTx} htmlFor="sf-title">
+              Title
+            </label>
+            <input
+              id="sf-title"
+              className={field}
+              value={form.title}
+              onChange={(e) => set("title", e.target.value)}
+              placeholder="e.g. Gulshan Glasshouse Photo Studio"
+              maxLength={90}
+            />
+          </div>
 
-        <div>
-          <label className="label pb-1" htmlFor="sf-category">
-            <span className={labelTx}>Category</span>
-          </label>
-          <select
-            id="sf-category"
-            className={`${field} ${form.category ? "" : "text-base-content/50"}`}
-            value={form.category}
-            onChange={(e) => set("category", e.target.value)}
-          >
-            <option value="" disabled>
-              Select category…
-            </option>
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c}
+          <div>
+            <label className={labelTx} htmlFor="sf-category">
+              Category
+            </label>
+            <select
+              id="sf-category"
+              className={`${field} ${form.category ? "" : "text-muted"}`}
+              value={form.category}
+              onChange={(e) => set("category", e.target.value)}
+            >
+              <option value="" disabled>
+                Select category…
               </option>
-            ))}
-          </select>
-        </div>
+              {CATEGORIES.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div>
-          <label className="label pb-1" htmlFor="sf-location">
-            <span className={labelTx}>Location / Address</span>
-          </label>
-          <input
-            id="sf-location"
-            className={field}
-            value={form.location}
-            onChange={(e) => set("location", e.target.value)}
-            placeholder="House 34, Road 12, Banani, Dhaka 1213"
-          />
-        </div>
+          <div>
+            <label className={labelTx} htmlFor="sf-location">
+              Location / address
+            </label>
+            <input
+              id="sf-location"
+              className={field}
+              value={form.location}
+              onChange={(e) => set("location", e.target.value)}
+              placeholder="House 34, Road 12, Banani, Dhaka 1213"
+            />
+          </div>
 
-        <div>
-          <label className="label pb-1" htmlFor="sf-rate">
-            <span className={labelTx}>Hourly Rate (৳ BDT)</span>
-          </label>
-          <input
-            id="sf-rate"
-            type="number"
-            min="1"
-            step="1"
-            className={field}
-            value={form.hourlyRate}
-            onChange={(e) => set("hourlyRate", e.target.value)}
-            placeholder="4500"
-          />
-        </div>
+          <div>
+            <label className={labelTx} htmlFor="sf-rate">
+              Hourly rate (৳ BDT)
+            </label>
+            <input
+              id="sf-rate"
+              type="number"
+              min="1"
+              step="1"
+              className={field}
+              value={form.hourlyRate}
+              onChange={(e) => set("hourlyRate", e.target.value)}
+              placeholder="4500"
+            />
+          </div>
 
-        <div>
-          <label className="label pb-1" htmlFor="sf-deposit">
-            <span className={labelTx}>Security Deposit (৳ BDT) <span className="text-base-content/40">(refundable)</span></span>
-          </label>
-          <input
-            id="sf-deposit"
-            type="number"
-            min="0"
-            step="1"
-            className={field}
-            value={form.securityDeposit}
-            onChange={(e) => set("securityDeposit", e.target.value)}
-            placeholder="15000"
-          />
-        </div>
+          <div>
+            <label className={labelTx} htmlFor="sf-deposit">
+              Security deposit (৳ BDT){" "}
+              <span className="font-normal normal-case tracking-normal text-faint">
+                refundable
+              </span>
+            </label>
+            <input
+              id="sf-deposit"
+              type="number"
+              min="0"
+              step="1"
+              className={field}
+              value={form.securityDeposit}
+              onChange={(e) => set("securityDeposit", e.target.value)}
+              placeholder="15000"
+            />
+          </div>
 
-        <div>
-          <label className="label pb-1" htmlFor="sf-cap">
-            <span className={labelTx}>Max Capacity (people)</span>
-          </label>
-          <input
-            id="sf-cap"
-            type="number"
-            min="1"
-            step="1"
-            className={field}
-            value={form.maxCapacity}
-            onChange={(e) => set("maxCapacity", e.target.value)}
-            placeholder="12"
-          />
+          <div>
+            <label className={labelTx} htmlFor="sf-cap">
+              Max capacity (people)
+            </label>
+            <input
+              id="sf-cap"
+              type="number"
+              min="1"
+              step="1"
+              className={field}
+              value={form.maxCapacity}
+              onChange={(e) => set("maxCapacity", e.target.value)}
+              placeholder="12"
+            />
+          </div>
         </div>
-      </section>
+      </fieldset>
 
       {/* Photo — imgbb upload OR pasted URL */}
-      <section className="bg-base-200/40 border border-base-300 rounded-xl p-4 space-y-3">
-        <p className="font-heading font-semibold text-sm">Studio Photo</p>
-        <div className="flex flex-col sm:flex-row gap-3 items-stretch">
-          <label className="form-control flex-1">
-            <span className={labelTx + " flex items-center gap-1.5 mb-1"}>
-              <ImagePlus size={14} className="text-primary" /> Upload file (imgbb)
+      <fieldset className="rounded-2xl border border-base-content/10 bg-base-200/40 p-5">
+        <legend className="px-1 font-heading text-[15px] font-medium">
+          Studio photo
+        </legend>
+        <div className="mt-2 flex flex-col items-stretch gap-4 sm:flex-row">
+          <label className="flex-1">
+            <span className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-faint">
+              <ImagePlus size={13} className="text-[#e79b23]" /> Upload (imgbb)
             </span>
             <input
               id="studio-image-file"
               type="file"
               accept="image/*"
               onChange={onFile}
-              className="file-input file-input-bordered file-input-sm w-full text-base-content"
+              className="block w-full text-[12px] text-muted file:mr-3 file:h-9 file:rounded-full file:border-0 file:bg-neutral file:px-4 file:text-[12px] file:font-medium file:text-neutral-content hover:file:opacity-90"
             />
           </label>
-          <label className="form-control flex-1">
-            <span className={labelTx + " flex items-center gap-1.5 mb-1"}>
-              <Link2 size={14} className="text-primary" /> …or paste image URL
+          <label className="flex-1">
+            <span className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-faint">
+              <Link2 size={13} className="text-[#e79b23]" /> …or paste a URL
             </span>
             <input
               type="url"
               className={field}
               value={form.image}
               onChange={(e) => set("image", e.target.value)}
-              placeholder="https://i.ibb.co/… or https://images.unsplash.com/photo-…"
+              placeholder="https://i.ibb.co/… or /studios/room.jpg"
             />
           </label>
         </div>
         {uploading && (
-          <p className="text-xs text-primary flex items-center gap-2">
-            <LoaderCircle size={13} className="loading" /> Uploading to imgbb…
+          <p className="mt-3 flex items-center gap-2 text-[12px] text-primary">
+            <LoaderCircle size={13} className="animate-spin" /> Uploading to
+            imgbb…
           </p>
         )}
-        {form.image?.startsWith("http") && (
-          <div className="flex gap-3 items-center pt-1">
+        {previewable(form.image) && (
+          <div className="mt-4 flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={form.image}
               alt="Studio preview"
-              className="w-24 h-18 aspect-[4/3] object-cover rounded-lg border border-base-300"
+              className="h-20 w-28 rounded-lg border border-base-content/10 object-cover"
             />
             <button
               type="button"
-              className="btn btn-ghost btn-xs text-error"
+              className="inline-flex items-center gap-1 rounded-full border border-base-content/15 px-3 py-1.5 text-[11px] text-error transition-colors hover:bg-error/10"
               onClick={() => set("image", "")}
             >
-              <X size={13} /> Remove
+              <X size={12} /> Remove
             </button>
           </div>
         )}
-      </section>
+      </fieldset>
 
       {/* Amenities */}
-      <section>
-        <label className={labelTx + " block mb-2"}>Amenities</label>
+      <fieldset>
+        <legend className="mb-3 font-heading text-[15px] font-medium">
+          Amenities
+        </legend>
         <div className="flex flex-wrap gap-2">
-          {AMENITY_OPTIONS.map((a) => (
-            <button
-              type="button"
-              key={a}
-              aria-pressed={form.amenities.includes(a)}
-              onClick={() => toggleAmenity(a)}
-              className={`btn btn-xs sm:btn-sm rounded-full border ${
-                form.amenities.includes(a)
-                  ? "btn-primary border-primary"
-                  : "btn-outline border-base-300 hover:border-primary hover:text-primary"
-              }`}
-            >
-              {a}
-            </button>
-          ))}
+          {AMENITY_OPTIONS.map((a) => {
+            const on = form.amenities.includes(a);
+            return (
+              <button
+                type="button"
+                key={a}
+                aria-pressed={on}
+                onClick={() => toggleAmenity(a)}
+                className={`h-8 rounded-full border px-3.5 text-[12px] font-medium transition-colors ${
+                  on
+                    ? "border-neutral bg-neutral text-neutral-content"
+                    : "border-base-content/15 text-muted hover:border-base-content/35 hover:text-base-content"
+                }`}
+              >
+                {a}
+              </button>
+            );
+          })}
         </div>
-        <div className="join mt-3 max-w-sm">
+        <div className="mt-3 flex max-w-sm gap-2">
           <input
             type="text"
-            className="input input-bordered join-item input-sm w-full bg-base-200/50"
+            className={field}
             value={customAmenity}
             onChange={(e) => setCustomAmenity(e.target.value)}
             onKeyDown={(e) => {
@@ -303,40 +326,44 @@ export default function StudioForm({ initial, onSubmit, submitLabel = "Create Li
                 addCustomAmenity();
               }
             }}
-            placeholder="Add custom amenity (e.g. Cyclorama repaint service)"
+            placeholder="Add custom amenity (e.g. cyclorama repaint)"
           />
           <button
             type="button"
             onClick={addCustomAmenity}
-            className="btn btn-outline join-item btn-sm px-3"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-base-content/15 transition-colors hover:bg-base-content/5"
             aria-label="Add custom amenity"
           >
             <Plus size={15} />
           </button>
         </div>
-      </section>
+      </fieldset>
 
       {/* Overview */}
-      <section>
-        <label className={labelTx + " block mb-1"} htmlFor="sf-overview">
-          Detailed Overview
+      <div>
+        <label className={labelTx} htmlFor="sf-overview">
+          Detailed overview
         </label>
         <textarea
           id="sf-overview"
-          className={`${field} h-36 leading-relaxed`}
+          className="h-36 w-full rounded-xl border border-base-content/15 bg-base-200/40 px-3.5 py-3 text-sm leading-relaxed text-base-content outline-none transition-colors placeholder:text-faint focus:border-[#e79b23] focus:bg-base-100"
           value={form.overview}
           onChange={(e) => set("overview", e.target.value)}
           placeholder="Describe the room, the gear renters get, load-in access and house rules — e.g. generator backup, lift access, parking, repaint service…"
         />
-        <p className="text-xs text-base-content/45 mt-1">
+        <p className="mt-1.5 text-[11px] text-faint">
           {form.overview.length} characters (minimum 60)
         </p>
-      </section>
+      </div>
 
-      <div className="flex gap-3">
-        <button type="submit" disabled={busy || uploading} className="btn btn-primary min-w-44">
+      <div className="flex gap-3 border-t border-base-content/10 pt-6">
+        <button
+          type="submit"
+          disabled={busy || uploading}
+          className="inline-flex h-11 min-w-44 items-center justify-center gap-2 rounded-full bg-neutral px-6 text-[13px] font-medium text-neutral-content transition-opacity hover:opacity-90 disabled:opacity-60"
+        >
           {busy || uploading ? (
-            <LoaderCircle size={16} className="loading" />
+            <LoaderCircle size={15} className="animate-spin" />
           ) : (
             submitLabel
           )}

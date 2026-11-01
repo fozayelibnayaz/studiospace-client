@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { Pencil, LoaderCircle } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { authClient } from "@/lib/auth-client";
@@ -44,7 +44,7 @@ function Inner() {
         setState("ready");
       })
       .catch((err) => {
-        setState(err.status === 404 ? "notfound" : "notfound");
+        setState("notfound");
         toast.error(err.message || "Failed to load studio");
       });
   }, [id, session?.user]);
@@ -68,73 +68,74 @@ function Inner() {
   };
 
   return (
-    <div className="section-pad px-4 sm:px-6 max-w-3xl mx-auto">
-      <header className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-2 flex items-center gap-2">
-          <Pencil size={15} /> Keep your listing honest
-        </p>
-        <h1 className="font-heading text-3xl md:text-4xl font-bold">Update Studio</h1>
-        <p className="mt-2 text-sm md:text-base text-base-content/60">
-          Changed the paint, the gear or the rate? Publish it so renters always
-          see the real room.
-        </p>
-      </header>
+    <div className="pt-28 pb-16 md:pt-32 md:pb-24">
+      <div className="container-x max-w-3xl">
+        <Link
+          href="/my-listings"
+          className="mb-6 inline-flex items-center gap-1.5 text-[12px] font-medium text-muted transition-colors hover:text-primary"
+        >
+          <ArrowLeft size={13} /> Back to my listings
+        </Link>
 
-      {state === "loading" && (
-        <div className="card bg-base-100 border border-base-300 shadow-sm p-6 md:p-8 space-y-4">
-          {Array.from({ length: 5 }, (_, i) => (
-            <div key={i} className="skeleton h-11 w-full" />
-          ))}
-        </div>
-      )}
+        <header className="border-b border-base-content/10 pb-8">
+          <p className="eyebrow mb-4 text-primary">Keep your listing honest</p>
+          <h1 className="display text-[2rem] sm:text-4xl md:text-[3rem]">
+            Update <span className="serif italic">studio.</span>
+          </h1>
+          <p className="mt-3 text-sm leading-relaxed text-muted md:text-[15px]">
+            Changed the paint, the gear or the rate? Publish it so renters always
+            see the real room.
+          </p>
+        </header>
 
-      {state === "notfound" && (
-        <EmptyState
-          title="Studio not found"
-          message="This listing doesn't exist anymore — it may have been deleted."
-          ctaLabel="Back to My Listings"
-          ctaHref="/my-listings"
-        />
-      )}
+        {state === "loading" && (
+          <div className="mt-8 space-y-4 rounded-[1.5rem] border border-base-content/10 p-6 md:p-8">
+            {Array.from({ length: 5 }, (_, i) => (
+              <div key={i} className="skeleton h-11 w-full rounded-xl" />
+            ))}
+          </div>
+        )}
 
-      {state === "forbidden" && (
-        <EmptyState
-          title="Not your listing"
-          message="Only the studio's owner can edit it. If this is you, log in with the owner account."
-          ctaLabel="Go to My Listings"
-          ctaHref="/my-listings"
-        />
-      )}
+        {state === "notfound" && (
+          <EmptyState
+            title="Studio not found"
+            message="This listing doesn't exist anymore — it may have been deleted."
+            ctaLabel="Back to my listings"
+            ctaHref="/my-listings"
+          />
+        )}
 
-      {state === "ready" && studio && (
-        <div className="card bg-base-100 border border-base-300 shadow-sm p-6 md:p-8">
-          <div className="gap-6 grid">
+        {state === "forbidden" && (
+          <EmptyState
+            title="Not your listing"
+            message="Only the studio's owner can edit it. If this is you, log in with the owner account."
+            ctaLabel="Go to my listings"
+            ctaHref="/my-listings"
+          />
+        )}
+
+        {state === "ready" && studio && (
+          <div className="mt-8 rounded-[1.5rem] border border-base-content/10 p-6 md:p-8">
             {/* read-only host identity, from session */}
-            <div className="flex flex-wrap gap-x-8 gap-y-2 bg-base-200/50 border border-base-300 rounded-xl px-4 py-3 text-sm">
+            <div className="mb-6 flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-base-content/10 bg-base-200/50 px-4 py-3 text-[12.5px]">
               <p>
-                <span className="text-base-content/55">Host name: </span>
-                <b>{session?.user?.name}</b>
+                <span className="text-muted">Host name: </span>
+                <b className="font-medium">{session?.user?.name}</b>
               </p>
               <p>
-                <span className="text-base-content/55">Host email: </span>
-                <b>{session?.user?.email}</b>
+                <span className="text-muted">Host email: </span>
+                <b className="font-medium">{session?.user?.email}</b>
               </p>
             </div>
             <StudioForm
               initial={studio}
               onSubmit={submit}
-              submitLabel={busy ? "Saving…" : "Save Changes"}
+              submitLabel={busy ? "Saving…" : "Save changes"}
               busy={busy}
             />
           </div>
-          <p className="mt-4 flex items-center gap-2 text-xs text-base-content/45 justify-center">
-            <LoaderCircle size={12} className="hidden" />
-            <Link href="/my-listings" className="link link-hover">
-              ← Back to My Studio Listings
-            </Link>
-          </p>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

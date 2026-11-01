@@ -24,7 +24,6 @@ function Inner() {
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const [items, setItems] = useState(null);
-  const [syncedCards, setSyncedCards] = useState(false);
 
   const email = session?.user?.email;
 
@@ -44,7 +43,6 @@ function Inner() {
         ownerEmail: w.ownerEmail,
       }));
       setItems(studios);
-      setSyncedCards(true);
     } catch (err) {
       if (err.status === 401) {
         toast.error("Session expired — please log in again.");
@@ -61,38 +59,41 @@ function Inner() {
   }, [load]);
 
   return (
-    <div className="section-pad px-4 sm:px-6 max-w-7xl mx-auto">
-      <header className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-2 flex items-center gap-2">
-          <Heart size={15} /> Saved for later
-        </p>
-        <h1 className="font-heading text-3xl md:text-4xl font-bold">Your Wishlist</h1>
-        <p className="mt-2 text-sm text-base-content/60">
-          Studios you starred while browsing. Tap the heart on a card to remove.
-        </p>
-      </header>
+    <div className="pt-28 pb-16 md:pt-32 md:pb-24">
+      <div className="container-x">
+        <header className="border-b border-base-content/10 pb-8">
+          <p className="eyebrow mb-4 text-primary">Saved for later</p>
+          <h1 className="display text-[2rem] sm:text-4xl md:text-[3rem]">
+            Your <span className="serif italic">wishlist.</span>
+          </h1>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+            Studios you starred while browsing. Tap the heart on a card to remove
+            it, or open a room to book it.
+          </p>
+        </header>
 
-      {items === null ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 3 }, (_, i) => (
-            <StudioCardSkeleton key={i} />
-          ))}
-        </div>
-      ) : items.length === 0 ? (
-        <EmptyState
-          icon={Heart}
-          title="Nothing saved yet"
-          message="Tap the heart on any studio card while browsing and it will wait for you here."
-          ctaLabel="Explore Studios"
-          ctaHref="/studios"
-        />
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((s) => (
-            <StudioCard key={s._id} studio={s} />
-          ))}
-        </div>
-      )}
+        {items === null ? (
+          <div className="mt-10 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 md:gap-x-6">
+            {Array.from({ length: 3 }, (_, i) => (
+              <StudioCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : items.length === 0 ? (
+          <EmptyState
+            icon={Heart}
+            title="Nothing saved yet"
+            message="Tap the heart on any studio card while browsing and it will wait for you here."
+            ctaLabel="Explore studios"
+            ctaHref="/studios"
+          />
+        ) : (
+          <div className="mt-10 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 md:gap-x-6">
+            {items.map((s) => (
+              <StudioCard key={s._id} studio={s} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

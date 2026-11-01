@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import LoginForm from "./LoginForm";
+import AuthShell from "@/components/AuthShell";
 
 export const metadata = {
   title: "Login",
@@ -10,22 +11,26 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="section-pad px-4 bg-base-200/40">
+    <AuthShell
+      image="/studios/dhanmondi-loft.jpg"
+      eyebrow="Back on set"
+      quote="“We shot three lookbooks in one day because every room was on the same calendar.”"
+      byline="Nusrat Jahan · producer, Dhaka"
+    >
       <Suspense
         fallback={
-          <div className="w-full max-w-md mx-auto card bg-base-100 border border-base-300 shadow-md h-96">
-            <div className="card-body justify-center gap-4">
-              <div className="skeleton h-10 w-40 mx-auto self-center" />
-              <div className="skeleton h-5 w-64" />
-              <div className="skeleton h-12 w-full" />
-              <div className="skeleton h-12 w-full" />
-              <div className="skeleton h-10 w-full" />
-            </div>
+          <div className="mx-auto w-full max-w-sm space-y-4">
+            <div className="skeleton h-3 w-24 rounded-full" />
+            <div className="skeleton h-9 w-56 rounded-md" />
+            <div className="skeleton h-4 w-full rounded-md" />
+            <div className="skeleton h-12 w-full rounded-xl" />
+            <div className="skeleton h-12 w-full rounded-xl" />
+            <div className="skeleton h-12 w-full rounded-full" />
           </div>
         }
       >
         <LoginForm />
       </Suspense>
-    </div>
+    </AuthShell>
   );
 }

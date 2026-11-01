@@ -3,17 +3,15 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CalendarCheck, FileDown, XCircle } from "lucide-react";
+import { CalendarCheck, FileDown, XCircle, ArrowUpRight } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { authClient } from "@/lib/auth-client";
 import { apiRequest } from "@/lib/api";
-import { BOOKING_STATUS_STYLES } from "@/lib/constants";
 import { bdt, bdtPdf } from "@/lib/format";
 import RequireSession from "@/components/RequireSession";
 import EmptyState from "@/components/EmptyState";
 import ConfirmModal from "@/components/ConfirmModal";
-import StudioCardSkeleton from "@/components/StudioCardSkeleton";
 
 export default function MyBookingsPage() {
   return (
@@ -22,6 +20,16 @@ export default function MyBookingsPage() {
     </RequireSession>
   );
 }
+
+const badgeClass = (status) => {
+  const map = {
+    Pending: "border-[#e79b23]/35 bg-[#e79b23]/12 text-[#a86a12]",
+    Confirmed: "border-success/35 bg-success/12 text-success",
+    Completed: "border-info/35 bg-info/12 text-info",
+    Cancelled: "border-error/35 bg-error/12 text-error",
+  };
+  return map[status] || "border-base-content/15 text-muted";
+};
 
 function Inner() {
   const router = useRouter();
@@ -162,121 +170,130 @@ function Inner() {
   };
 
   return (
-    <div className="section-pad px-4 sm:px-6 max-w-5xl mx-auto">
-      <header className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-2 flex items-center gap-2">
-          <CalendarCheck size={15} /> Your sessions
-        </p>
-        <h1 className="font-heading text-3xl md:text-4xl font-bold">My Bookings</h1>
-        <p className="mt-2 text-sm text-base-content/60">
-          Every studio hour you have reserved — cancel any pending booking with
-          one click.
-        </p>
-      </header>
+    <div className="pt-28 pb-16 md:pt-32 md:pb-24">
+      <div className="container-x">
+        <header className="border-b border-base-content/10 pb-8">
+          <p className="eyebrow mb-4 text-primary">Your sessions</p>
+          <h1 className="display text-[2rem] sm:text-4xl md:text-[3rem]">
+            My <span className="serif italic">bookings.</span>
+          </h1>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+            Every studio hour you have reserved — cancel any pending booking with
+            one click, or download a PDF invoice once the host confirms.
+          </p>
+        </header>
 
-      {justBooked && (
-        <div className="alert alert-success mb-6">
-          <span>
-            Your booking is confirmed as <b>Pending</b>. The host sees it
-            immediately — check the details below.
-          </span>
-        </div>
-      )}
+        {justBooked && (
+          <div className="mt-6 flex items-start gap-3 rounded-2xl border border-success/30 bg-success/10 px-5 py-4 text-[13px] leading-relaxed">
+            <CalendarCheck size={17} className="mt-0.5 shrink-0 text-success" />
+            <p>
+              Your booking is confirmed as <b>Pending</b>. The host sees it
+              immediately — check the details below.
+            </p>
+          </div>
+        )}
 
-      {bookings === null ? (
-        <div className="space-y-4">
-          {Array.from({ length: 2 }, (_, i) => (
-            <div key={i} className="card bg-base-100 border border-base-300 p-4 flex gap-4">
-              <div className="skeleton w-40 h-28 rounded-xl" />
-              <div className="flex-1 space-y-3 py-1">
-                <div className="skeleton h-5 w-2/3" />
-                <div className="skeleton h-4 w-1/2" />
-                <div className="skeleton h-4 w-1/3" />
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : bookings.length === 0 ? (
-        <EmptyState
-          icon={CalendarCheck}
-          title="No sessions booked yet"
-          message="When you reserve studio time it shows up here with its live status — pending, confirmed, completed or cancelled."
-          ctaLabel="Explore Studios"
-          ctaHref="/studios"
-        />
-      ) : (
-        <ul className="space-y-4">
-          {bookings.map((b) => (
-            <li
-              key={b._id}
-              className="card bg-base-100 border border-base-300 shadow-sm overflow-hidden"
-            >
-              <div className="flex flex-col sm:flex-row gap-4 p-4">
-                <Link href={`/studios/${b.studioId}`} className="shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={b.studioImage}
-                    alt={b.studioTitle}
-                    className="w-full h-40 sm:h-28 sm:w-44 object-cover rounded-xl border border-base-300"
-                  />
-                </Link>
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <h3 className="font-heading font-bold text-lg truncate">
-                      {b.studioTitle}
-                    </h3>
-                    <span
-                      className={`badge badge-sm font-semibold ${
-                        BOOKING_STATUS_STYLES[b.status] || "badge-ghost"
-                      }`}
-                    >
-                      {b.status}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm text-base-content/65">
-                    {b.date} · {b.startTime} – {b.endTime} ({b.totalHours} h)
-                  </p>
-                  <p className="text-xs text-base-content/50 truncate">
-                    {b.studioLocation}
-                  </p>
-                  <p className="mt-1.5 font-heading font-semibold text-lg">
-                    {bdt(b.totalCost, { decimals: true })}
-                    {Number(b.securityDeposit) > 0 && (
-                      <span className="text-xs font-normal text-base-content/50">
-                        {" "}
-                        + {bdt(b.securityDeposit)} deposit
-                      </span>
-                    )}
-                  </p>
+        {bookings === null ? (
+          <ul className="mt-8 space-y-4">
+            {Array.from({ length: 2 }, (_, i) => (
+              <li
+                key={i}
+                className="flex gap-4 rounded-2xl border border-base-content/10 p-4"
+              >
+                <div className="skeleton h-28 w-44 rounded-xl" />
+                <div className="flex-1 space-y-3 py-1">
+                  <div className="skeleton h-5 w-2/3 rounded-md" />
+                  <div className="skeleton h-4 w-1/2 rounded-md" />
+                  <div className="skeleton h-4 w-1/3 rounded-md" />
                 </div>
-                <div className="flex sm:flex-col gap-2 justify-end items-stretch">
-                  {b.status === "Pending" && (
-                    <button
-                      type="button"
-                      onClick={() => setToCancel(b)}
-                      className="btn btn-error btn-outline btn-sm"
-                    >
-                      <XCircle size={14} /> Cancel Booking
-                    </button>
-                  )}
-                  {b.status === "Confirmed" && (
-                    <button
-                      type="button"
-                      onClick={() => downloadInvoice(b)}
-                      className="btn btn-outline btn-sm"
-                    >
-                      <FileDown size={14} /> Download Invoice (PDF)
-                    </button>
-                  )}
-                  <Link href={`/studios/${b.studioId}`} className="btn btn-ghost btn-sm">
-                    View studio
+              </li>
+            ))}
+          </ul>
+        ) : bookings.length === 0 ? (
+          <EmptyState
+            icon={CalendarCheck}
+            title="No sessions booked yet"
+            message="When you reserve studio time it shows up here with its live status — pending, confirmed, completed or cancelled."
+            ctaLabel="Explore studios"
+            ctaHref="/studios"
+          />
+        ) : (
+          <ul className="mt-8 divide-y divide-base-content/10 border-y border-base-content/10">
+            {bookings.map((b) => (
+              <li key={b._id} className="py-5">
+                <div className="flex flex-col gap-4 sm:flex-row">
+                  <Link
+                    href={`/studios/${b.studioId}`}
+                    className="shrink-0 overflow-hidden rounded-xl bg-base-200"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={b.studioImage}
+                      alt={b.studioTitle}
+                      className="h-40 w-full object-cover sm:h-24 sm:w-36"
+                    />
                   </Link>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <h3 className="font-heading text-[15px] font-medium">
+                        {b.studioTitle}
+                      </h3>
+                      <span
+                        className={`rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] ${badgeClass(
+                          b.status
+                        )}`}
+                      >
+                        {b.status}
+                      </span>
+                    </div>
+                    <p className="mt-1.5 text-[13px] text-muted">
+                      {b.date} · {b.startTime} – {b.endTime} ({b.totalHours} h)
+                    </p>
+                    <p className="truncate text-[12px] text-faint">
+                      {b.studioLocation}
+                    </p>
+                    <p className="mt-1.5 font-heading text-[15px] font-semibold">
+                      {bdt(b.totalCost, { decimals: true })}
+                      {Number(b.securityDeposit) > 0 && (
+                        <span className="text-[11px] font-normal text-faint">
+                          {" "}
+                          + {bdt(b.securityDeposit)} deposit
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex items-stretch justify-end gap-2 sm:flex-col">
+                    {b.status === "Pending" && (
+                      <button
+                        type="button"
+                        onClick={() => setToCancel(b)}
+                        className="inline-flex h-9 items-center gap-1.5 rounded-full border border-error/30 px-3.5 text-[12px] font-medium text-error transition-colors hover:bg-error/10"
+                      >
+                        <XCircle size={13} /> Cancel
+                      </button>
+                    )}
+                    {b.status === "Confirmed" && (
+                      <button
+                        type="button"
+                        onClick={() => downloadInvoice(b)}
+                        className="inline-flex h-9 items-center gap-1.5 rounded-full border border-base-content/15 px-3.5 text-[12px] font-medium transition-colors hover:bg-base-content/5"
+                      >
+                        <FileDown size={13} /> Invoice PDF
+                      </button>
+                    )}
+                    <Link
+                      href={`/studios/${b.studioId}`}
+                      className="inline-flex h-9 items-center gap-1 rounded-full px-3.5 text-[12px] font-medium text-muted transition-colors hover:text-primary"
+                    >
+                      View studio <ArrowUpRight size={12} />
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
       <ConfirmModal
         open={Boolean(toCancel)}
@@ -289,7 +306,7 @@ function Inner() {
             ? `\u201C${toCancel.studioTitle}\u201D on ${toCancel.date} (${toCancel.startTime}–${toCancel.endTime}) will be released back to other creators.`
             : ""
         }
-        confirmLabel="Yes, Cancel It"
+        confirmLabel="Yes, cancel it"
         destructive={false}
       />
     </div>
