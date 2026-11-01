@@ -94,5 +94,6 @@ export default function StudioCard({ studio }) {
         </div>
       </div>
     </article>
+    <BookingModal studio={studio} open={bookingOpen} onClose={() => setBookingOpen(false)} />
   );
 }
