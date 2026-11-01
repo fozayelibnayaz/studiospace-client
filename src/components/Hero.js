@@ -88,7 +88,7 @@ export default function Hero() {
         style={{ background: "radial-gradient(circle, rgba(231,155,35,0.45) 0%, rgba(231,155,35,0) 70%)" }}
       />
 
-      <div className="relative container-x pt-28 pb-16 sm:pt-32 md:pt-36 md:pb-20 flex min-h-[min(100vh,980px)] flex-col justify-center">
+      <div className="relative container-x pt-28 pb-16 sm:pt-32 md:pt-36 md:pb-20 flex min-h-screen flex-col justify-center">
         <div className="grid items-center gap-10 lg:grid-cols-[1.6fr_1fr]">
           {/* Headline block */}
           <div className="max-w-4xl">
