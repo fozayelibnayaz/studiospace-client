@@ -2,14 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  ArrowRight,
-  MapPin,
-  Play,
-  ShieldCheck,
-  Sparkles,
-  Star,
-} from "lucide-react";
+import { ArrowRight, MapPin, Search, ShieldCheck, Star } from "lucide-react";
 
 const AREAS = [
   "Gulshan",
@@ -38,18 +31,19 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero-shell grain relative overflow-hidden" aria-label="StudioSpace introduction">
+    <section className="ss-hero ss-grain" aria-label="StudioSpace introduction">
+      {/* Media layer: dimmed, tinted by the amber streaks above it */}
       {reduceMotion ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src="/media/hero-poster.jpg"
-          alt="A photography studio in Dhaka with softboxes and a cyclorama wall"
-          className="hero-video"
+          alt=""
+          className="ss-media"
           fetchPriority="high"
         />
       ) : (
         <video
-          className="hero-video"
+          className="ss-media"
           autoPlay
           muted
           loop
@@ -64,140 +58,116 @@ export default function Hero() {
         </video>
       )}
 
-      {/* Bold amber scrim: heavy left darkening + vivid amber spotlight */}
-      <div className="hero-scrim" />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 50% at 15% 40%, rgba(231,155,35,0.55) 0%, rgba(231,155,35,0.15) 40%, transparent 70%), radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,0,0,0.85) 0%, transparent 60%)",
-        }}
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70" />
+      {/* Raycast-style diagonal amber light bars + theme-aware vignette */}
+      <div className="ss-streaks" aria-hidden="true">
+        <i /><i /><i /><i /><i />
+      </div>
+      <div className="ss-vignette" aria-hidden="true" />
 
-      {/* 3D ambience: amber light mass */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 left-[10%] h-[26rem] w-[26rem] rounded-full opacity-80 blur-[120px]"
-        style={{ background: "radial-gradient(circle, rgba(231,155,35,0.6) 0%, rgba(231,155,35,0) 70%)" }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 right-[5%] h-80 w-80 rounded-full opacity-50 blur-[100px]"
-        style={{ background: "radial-gradient(circle, rgba(231,155,35,0.45) 0%, rgba(231,155,35,0) 70%)" }}
-      />
+      {/* pt-32 reserves room for the floating navbar INSIDE the hero */}
+      <div className="mx-auto flex min-h-[100svh] max-w-6xl flex-col items-center justify-center px-5 pb-10 pt-32 text-center">
+        <p className="inline-flex items-center gap-2 rounded-full border border-[var(--ss-line)] bg-[var(--ss-glass)] px-3.5 py-1.5 text-xs font-medium text-[var(--ss-muted)] backdrop-blur">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--ss-amber)]" />
+          Now booking across Bangladesh
+        </p>
 
-      <div className="relative container-x pt-28 pb-16 sm:pt-32 md:pt-36 md:pb-20 flex min-h-screen flex-col justify-center">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.6fr_1fr]">
-          {/* Headline block */}
-          <div className="max-w-4xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-[#e79b23]/40 bg-[#e79b23]/15 px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#f3c46c] backdrop-blur-sm">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-[#e79b23] opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#e79b23]" />
+        <h1 className="display mt-6 max-w-4xl text-balance text-[2.9rem] leading-[0.98] tracking-[-0.045em] text-[var(--ss-fg)] sm:text-7xl lg:text-[5.75rem]">
+          Find the space.
+          <br />
+          Make something{" "}
+          <span className="serif italic text-[var(--ss-amber-deep)]">
+            extraordinary.
+          </span>
+        </h1>
+
+        <p className="mt-6 max-w-xl text-pretty text-[15px] leading-relaxed text-[var(--ss-muted)] sm:text-base">
+          Photo studios, film stages, podcast lounges and music rooms from
+          verified hosts in Dhaka, Chattogram, Sylhet and beyond. Real rooms,
+          honest taka rates, exact hours.
+        </p>
+
+        {/* Search */}
+        <form
+          action="/studios"
+          className="mt-9 flex w-full max-w-2xl flex-col gap-2 rounded-3xl border border-[var(--ss-line)] bg-[var(--ss-field)] p-2 text-left text-[#1b1710] shadow-[0_24px_60px_-24px_rgba(231,155,35,0.55)] sm:flex-row sm:items-center sm:rounded-full"
+        >
+          <label className="flex flex-1 items-center gap-3 px-4 py-2">
+            <Search size={17} className="shrink-0" />
+            <span className="min-w-0 flex-1">
+              <span className="block text-[11px] font-semibold text-black/55">
+                What are you making?
               </span>
-              Now booking across Bangladesh
-            </p>
+              <input
+                name="q"
+                placeholder="Photo, film, podcast…"
+                className="w-full bg-transparent text-sm outline-none placeholder:text-black/40"
+              />
+            </span>
+          </label>
 
-            <h1 className="display mt-6 text-[#f7f3e9] text-balance text-[2.8rem] leading-[0.95] tracking-[-0.05em] sm:text-7xl lg:text-[6rem]">
-              Find the space.
-              <br />
-              Make something{" "}
-              <span className="serif italic text-[#f3c46c] drop-shadow-[0_0_24px_rgba(231,155,35,0.5)]">extraordinary.</span>
-            </h1>
+          <span className="hidden h-8 w-px bg-black/10 sm:block" />
 
-            <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-[#f1eee5]/80 sm:text-base">
-              Book remarkable photo studios, film stages, podcast lounges and music
-              rooms from verified hosts in Dhaka, Chattogram, Sylhet and beyond.
-              Real rooms, honest taka rates, exact hours.
-            </p>
-
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link
-                href="/studios"
-                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#e79b23] px-8 text-sm font-semibold text-[#14120c] transition-all hover:bg-[#f3c46c] hover:shadow-[0_0_30px_rgba(231,155,35,0.5)]"
-              >
-                Explore Studios <ArrowRight size={16} />
-              </Link>
-              <Link
-                href="/add-studio"
-                className="inline-flex h-12 items-center gap-2 rounded-full border border-white/30 bg-white/[0.06] px-8 text-sm font-medium text-[#f7f3e9] backdrop-blur-sm transition-colors hover:bg-white/10"
-              >
-                <Play size={14} /> Host Your Space
-              </Link>
-            </div>
-
-            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs text-[#f1eee5]/70">
-              <span className="inline-flex items-center gap-1.5">
-                <ShieldCheck size={14} className="text-[#e79b23]" />
-                Identity-verified hosts
+          <label className="flex flex-1 items-center gap-3 px-4 py-2">
+            <MapPin size={17} className="shrink-0" />
+            <span className="min-w-0 flex-1">
+              <span className="block text-[11px] font-semibold text-black/55">
+                Where?
               </span>
-              <span className="hidden h-3 w-px bg-white/20 sm:block" />
-              <span className="inline-flex items-center gap-1.5">
-                <Sparkles size={14} className="text-[#e79b23]" />
-                5 disciplines · 12 curated rooms
-              </span>
-              <span className="hidden md:inline-flex items-center gap-1.5 pl-2">
-                <Star size={13} className="fill-[#e79b23] text-[#e79b23]" />
-                4.9 from 300+ sessions
-              </span>
-            </div>
-          </div>
+              <input
+                name="area"
+                placeholder="City or neighbourhood"
+                className="w-full bg-transparent text-sm outline-none placeholder:text-black/40"
+              />
+            </span>
+          </label>
 
-          {/* 3D floating card stack */}
-          <div className="hidden lg:block" style={{ perspective: "1200px" }}>
-            <div className="relative mx-auto w-72" style={{ transformStyle: "preserve-3d", transform: "rotateY(-8deg) rotateX(4deg)" }}>
-              <div className="absolute -top-4 -left-4 w-64 rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl opacity-40" style={{ transform: "translateZ(-40px)" }}>
-                <div className="h-10 w-full rounded-lg bg-white/5" />
-                <div className="mt-3 h-3 w-3/4 rounded bg-white/10" />
-                <div className="mt-2 h-3 w-1/2 rounded bg-white/10" />
-              </div>
-              <div className="relative w-64 rounded-2xl border border-[#e79b23]/30 bg-black/40 p-4 text-[#f1eee5] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(231,155,35,0.4)]" style={{ transform: "translateZ(0)" }}>
-                <div className="flex items-center gap-3">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/studios/gulshan-glasshouse.jpg"
-                    alt="Gulshan Glasshouse Photo Studio"
-                    className="h-14 w-14 rounded-xl object-cover"
-                    loading="lazy"
-                  />
-                  <div className="min-w-0">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#e79b23]/90">
-                      Featured today
-                    </p>
-                    <p className="truncate text-[14px] font-medium">Gulshan Glasshouse</p>
-                    <p className="mt-0.5 flex items-center gap-1 text-[11px] text-[#f1eee5]/50">
-                      <MapPin size={10} /> Gulshan 1, Dhaka
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
-                  <span className="font-heading font-semibold text-base text-[#e79b23]">৳6,500</span>
-                  <span className="text-[#f1eee5]/45">per hour</span>
-                  <Link href="/studios" className="text-[#f1eee5] hover:text-[#e79b23]">
-                    Book
-                  </Link>
-                </div>
-              </div>
-              <div className="absolute -bottom-4 -right-4 w-64 rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl opacity-40" style={{ transform: "translateZ(-80px)" }}>
-                <div className="h-10 w-full rounded-lg bg-white/5" />
-                <div className="mt-3 h-3 w-3/4 rounded bg-white/10" />
-                <div className="mt-2 h-3 w-1/2 rounded bg-white/10" />
-              </div>
-            </div>
-          </div>
+          <button
+            type="submit"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[var(--ss-amber)] px-6 text-sm font-semibold text-[var(--ss-on-amber)] transition-colors hover:bg-[var(--ss-amber-soft)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ss-amber)]"
+          >
+            Search <ArrowRight size={16} />
+          </button>
+        </form>
+
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
+          <Link
+            href="/studios"
+            className="font-semibold text-[var(--ss-fg)] underline decoration-[var(--ss-amber)] decoration-2 underline-offset-4"
+          >
+            Browse all studios
+          </Link>
+          <Link
+            href="/add-studio"
+            className="text-[var(--ss-muted)] hover:text-[var(--ss-fg)]"
+          >
+            Host your space
+          </Link>
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[var(--ss-muted)]">
+          <span className="inline-flex items-center gap-1.5">
+            <ShieldCheck size={14} className="text-[var(--ss-amber-deep)]" />
+            Identity-verified hosts
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Star size={13} className="fill-[var(--ss-amber)] text-[var(--ss-amber)]" />
+            4.9 from 300+ sessions
+          </span>
         </div>
 
         {/* City marquee */}
-        <div className="mt-14 border-t border-white/10 pt-4 marquee-mask overflow-hidden md:mt-16">
-          <div className="marquee-track items-center gap-8 text-[11px] uppercase tracking-[0.2em] text-[#f1eee5]/40">
+        <div className="ss-marquee-mask mt-14 w-full overflow-hidden border-t border-[var(--ss-line)] pt-4">
+          <div className="ss-marquee text-[12px] text-[var(--ss-muted)]">
             {[0, 1].map((copy) => (
-              <div key={copy} className="flex items-center gap-8 pr-8" aria-hidden={copy === 1}>
+              <div
+                key={copy}
+                className="flex items-center gap-8 pr-8"
+                aria-hidden={copy === 1}
+              >
                 {AREAS.map((a) => (
                   <span key={a} className="flex items-center gap-8">
                     {a}
-                    <span className="h-1 w-1 rounded-full bg-[#e79b23]/70" />
+                    <span className="h-1 w-1 rounded-full bg-[var(--ss-amber)]" />
                   </span>
                 ))}
               </div>
