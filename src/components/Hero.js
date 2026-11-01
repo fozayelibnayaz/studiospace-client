@@ -74,6 +74,12 @@ export default function Hero() {
         className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full opacity-70 blur-[130px]"
         style={{ background: "radial-gradient(circle, rgba(231,155,35,0.34) 0%, rgba(231,155,35,0) 68%)" }}
       />
+      {/* 3D ambience: warm horizon glow at the base of the fold */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 left-1/2 h-72 w-[70rem] max-w-full -translate-x-1/2 rounded-full opacity-60 blur-[140px]"
+        style={{ background: "radial-gradient(circle, rgba(231,155,35,0.22) 0%, rgba(231,155,35,0) 70%)" }}
+      />
 
       <div className="relative container-x pt-28 pb-16 sm:pt-32 md:pt-36 md:pb-20 flex min-h-[min(92vh,880px)] flex-col justify-center">
         <div className="grid items-center gap-12 lg:grid-cols-[1.6fr_1fr]">
