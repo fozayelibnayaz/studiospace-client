@@ -421,7 +421,7 @@ h4,
   --ss-amber-soft: #f3c46c;
   --ss-on-amber: #14120c;
   --ss-fg: #f7f3e9;
-  --ss-muted: rgba(241, 238, 229, 0.62);
+  --ss-muted: rgba(241, 238, 229, 0.78);
   --ss-line: rgba(255, 255, 255, 0.14);
   --ss-glass: rgba(0, 0, 0, 0.38);
   --ss-field: #f7f3e9;
@@ -433,7 +433,7 @@ h4,
   --ss-amber-soft: #f3c46c;
   --ss-on-amber: #14120c;
   --ss-fg: #f7f3e9;
-  --ss-muted: rgba(241, 238, 229, 0.62);
+  --ss-muted: rgba(241, 238, 229, 0.78);
   --ss-line: rgba(255, 255, 255, 0.14);
   --ss-glass: rgba(0, 0, 0, 0.38);
   --ss-field: #f7f3e9;
@@ -463,7 +463,7 @@ h4,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.72;
+  opacity: 0.4;
 }
 
 .ss-streaks {
