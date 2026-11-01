@@ -2,7 +2,7 @@
 
 Frontend for **StudioSpace**, a peer-to-peer creative workspace and production studio sharing platform. Photography, film, podcast, music and art professionals discover studio spaces, reserve exact hours and manage bookings; owners list and manage their rooms.
 
-**Live site:** <placeholder-live-url> · **Server repo:** `../studiospace-server` (shared database: `studiospaceDB`)
+**Live site:** https://studiospace-client-ebon.vercel.app · **API:** https://studiospace-server-xi.vercel.app · **Server repo:** https://github.com/fozayelibnayaz/studiospace-server (shared database: `studiospaceDB` on MongoDB Atlas)
 
 ## ✨ Features (Assignment-8: CRUD + Authentication)
 
@@ -85,6 +85,10 @@ npm run dev                     # http://localhost:3000
    - `BETTER_AUTH_URL` and `NEXT_PUBLIC_BETTER_AUTH_URL` → the Vercel production URL
    - `MONGODB_URI` → Atlas connection string (the same `studiospaceDB`)
    - `BETTER_AUTH_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `NEXT_PUBLIC_IMGBB_API_KEY`
-4. In Google Cloud Console add the production redirect URI: `https://<your-domain>/api/auth/callback/google`.
+4. In Google Cloud Console add the production redirect URI: `https://studiospace-client-ebon.vercel.app/api/auth/callback/google`.
 5. Set the API's `CLIENT_URL` to the Vercel origin so credentialed CORS and the `Secure; SameSite=None` JWT cookie work, then redeploy the API.
 6. `NEXT_PUBLIC_*` values are inlined at build time — redeploy the client after changing them.
+
+Current production deployment: client `https://studiospace-client-ebon.vercel.app` → API `https://studiospace-server-xi.vercel.app`.
+
+**If data fails to load in production:** open `https://studiospace-server-xi.vercel.app/health` — `"database": "configured"` means the API can see `MONGODB_URI`. If it says `"missing"` (or the API returns `ECONNREFUSED 127.0.0.1:27017`), the variable is empty or the deployment predates it — set it and redeploy. Also confirm the Atlas IP access list allows `0.0.0.0/0` so Vercel's serverless IPs can connect.
