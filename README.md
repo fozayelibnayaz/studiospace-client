@@ -10,6 +10,7 @@ Frontend for **StudioSpace**, a peer-to-peer creative workspace and production s
 - **Role-safe CRUD on studios** — create, read (search / filter / sort / limit), update and delete with server-side owner checks; the UI enforces it with private routes and read-only host identity fields.
 - **Booking system with double-booking prevention** (Challenge 2): the booking modal computes live hours + cost, and the server rejects overlapping pending/confirmed slots with a human-readable 409 toast.
 - **My Bookings** with colour-coded status badges (Pending / Confirmed / Completed / Cancelled), one-click cancel modal for pending sessions and **PDF invoice download** (jsPDF) for confirmed bookings.
+- **Host Booking Requests** — the other half of the lifecycle: whoever owns the studio sees every incoming reservation and moves it `Pending → Confirmed → Completed`. Customers can only cancel while a booking is still pending; the server enforces both rules and rejects invalid jumps with a 409.
 - **Wishlist** — heart any studio card from Explore or Details; saved items persist in MongoDB and toggle off again from the wishlist page.
 - **Theme customization** (Challenge 3): light and custom "studio dark" theme, toggled in the navbar, persisted in localStorage, applied before first paint (no flash on reload).
 - Host dashboard with live stats, custom 404, branded loading skeletons and empty states everywhere, fully responsive layouts with equal-height 4/3 cards.
@@ -61,13 +62,29 @@ npm run dev                     # http://localhost:3000
 
 | Field | Value |
 |---|---|
-| Email (email/password login) | `[add-your-test-email@example.com]` |
-| Password | `[add-your-test-password]` |
-| Google | Sign up with any Google account once OAuth keys are configured |
-| Seeded demo studios' owner | register with `seed@example.com` / any allowed password matching the rules to administer the 12 seeded listings |
+| Creator / customer account | `examiner@studiospace.dev` |
+| Password | `Examiner123` |
+| Host account (owns all 12 seeded studios) | `seed@example.com` |
+| Host password | `Seedpass1` |
+| Google | "Continue with Google" works once `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` are set; the examiner's Google account can sign in the same way |
+
+**How to try the booking lifecycle:** sign in as the creator, book any studio from its details page (it lands as **Pending** in *My Bookings*), then sign in as the host, open **Booking Requests** from the avatar menu, and press **Confirm Booking**, then **Mark Completed**. Sign back in as the creator to see the badge change and unlock the PDF invoice.
 
 ## 🗺️ Routes
 
-`/` home (hero slider, featured, categories, how-it-works, guarantee) · `/studios` explore (search/category/sort) · `/studios/[id]` details + booking modal · `/add-studio`* · `/my-listings`* · `/studios/edit/[id]`* · `/my-bookings`* (cancel + PDF invoice) · `/wishlist`* · `/dashboard`* · `/login` · `/register` · `/how-it-works` · `/about` · custom 404.
+`/` home (hero slider, featured, categories, how-it-works, guarantee) · `/studios` explore (search/category/sort) · `/studios/[id]` details + booking modal · `/add-studio`* · `/my-listings`* · `/studios/edit/[id]`* · `/my-bookings`* (cancel + PDF invoice) · `/booking-requests`* (host confirms/completes) · `/wishlist`* · `/dashboard`* · `/login` · `/register` · `/how-it-works` · `/about` · custom 404.
 
 *Private routes are guarded by **`src/proxy.js`** (Next.js 16 renamed middleware → proxy) using the BetterAuth session cookie, plus a client-side session gate that shows a skeleton while loading — reloading a private page while signed in never bounces you to login, and the intended destination is preserved via `?redirect=`.
+
+## ☁️ Deployment (Vercel)
+
+1. Deploy the API first (see the server repo's `render.yaml`) and copy its public URL.
+2. Vercel → **New Project** → import this repo (framework auto-detected as Next.js).
+3. Add the environment variables from `.env.local`, with production values:
+   - `NEXT_PUBLIC_SERVER_URL` → the deployed API origin (no trailing slash)
+   - `BETTER_AUTH_URL` and `NEXT_PUBLIC_BETTER_AUTH_URL` → the Vercel production URL
+   - `MONGODB_URI` → Atlas connection string (the same `studiospaceDB`)
+   - `BETTER_AUTH_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `NEXT_PUBLIC_IMGBB_API_KEY`
+4. In Google Cloud Console add the production redirect URI: `https://<your-domain>/api/auth/callback/google`.
+5. Set the API's `CLIENT_URL` to the Vercel origin so credentialed CORS and the `Secure; SameSite=None` JWT cookie work, then redeploy the API.
+6. `NEXT_PUBLIC_*` values are inlined at build time — redeploy the client after changing them.
