@@ -4,6 +4,8 @@ Frontend for **StudioSpace**, a peer-to-peer creative workspace and production s
 
 **Live site:** https://studiospace-client-ebon.vercel.app · **API:** https://studiospace-server-xi.vercel.app · **Server repo:** https://github.com/fozayelibnayaz/studiospace-server (shared database: `studiospaceDB` on MongoDB Atlas)
 
+> **Bangladesh-first.** The marketplace is priced in **BDT with the taka sign (৳)** everywhere — cards, booking modal, host listings, dashboard totals and PDF invoices (which print `BDT 4,500.00` because the built-in PDF font has no ৳ glyph). Seed data covers real areas in Dhaka (Gulshan, Banani, Dhanmondi, Uttara, Lalmatia, Mohammadpur, Old Dhaka), Chattogram (Khulshi, GEC), Sylhet (Zindabazar), Cox's Bazar (Kolatoli) and Rajshahi (Shaheb Bazar). Hosts settle with **bKash, Nagad or cash on arrival**; the platform adds no commission during beta.
+
 ## ✨ Features (Assignment-8: CRUD + Authentication)
 
 - **Email/password + Google authentication with BetterAuth** (MongoDB adapter) and a custom JWT flow: every successful login/register also calls `POST /jwt` so the Express API sets an **httpOnly `token` cookie** (Challenge 1). Logout clears both.
