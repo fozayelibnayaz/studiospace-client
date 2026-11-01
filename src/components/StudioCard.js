@@ -87,7 +87,7 @@ export default function StudioCard({ studio }) {
           </button>
           <Link
             href={`/studios/${studio._id}`}
-            className="inline-flex items-center gap-1 text-[13px] font-medium text-muted hover:text-primary transition-colors"
+            className="inline-flex items-center gap-1 text-[13px] font-medium text-muted hover:text-primary transition-colors whitespace-nowrap"
           >
             View details <ArrowUpRight size={14} />
           </Link>
