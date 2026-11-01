@@ -51,7 +51,7 @@ export default function Hero() {
           Now booking across Bangladesh
         </p>
 
-        <h1 className="text-[clamp(1.6rem,7.5vw,4.5rem)] sm:text-[clamp(2.5rem,8vw,6rem)] font-extrabold leading-[0.92] tracking-[-0.05em] text-white mb-6 drop-shadow-2xl break-words whitespace-normal">
+        <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold leading-[0.95] tracking-[-0.03em] text-white mb-6 drop-shadow-2xl">
           Find the space.
           <br />
           <span className="italic font-serif text-amber-300">Make something extraordinary.</span>
