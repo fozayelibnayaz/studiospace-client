@@ -81,7 +81,7 @@ export default function StudioCard({ studio }) {
           </p>
           <button
             onClick={() => setBookingOpen(true)}
-            className="inline-flex items-center gap-1 rounded-full bg-amber-500 text-[#14120c] font-bold text-xs px-3 py-1.5 hover:bg-amber-400 transition shadow-md shadow-amber-900/20"
+            className="inline-flex items-center gap-1 rounded-full bg-amber-500 text-[#14120c] font-bold text-xs px-3 py-1.5 hover:bg-amber-400 transition shadow-md shadow-amber-900/20 whitespace-nowrap"
           >
             Book now
           </button>
