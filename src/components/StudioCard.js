@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Star } from "lucide-react";
+import BookingModal from "./BookingModal";
+import { useState } from "react";
 
 import { bdt } from "@/lib/format";
 import WishlistButton from "./WishlistButton";
@@ -27,6 +29,7 @@ const areaOf = (studio) => {
  * so the card stays keyboard-accessible and never nests controls.
  */
 export default function StudioCard({ studio }) {
+  const [bookingOpen, setBookingOpen] = useState(false);
   return (
     <article className="group relative flex h-full flex-col">
       <div className="relative overflow-hidden rounded-2xl bg-base-200">
@@ -76,6 +79,12 @@ export default function StudioCard({ studio }) {
             {bdt(studio.hourlyRate)}
             <span className="text-xs font-normal text-faint"> / hour</span>
           </p>
+          <button
+            onClick={() => setBookingOpen(true)}
+            className="inline-flex items-center gap-1 rounded-full bg-amber-500 text-[#14120c] font-bold text-xs px-3 py-1.5 hover:bg-amber-400 transition shadow-md shadow-amber-900/20"
+          >
+            Book now
+          </button>
           <Link
             href={`/studios/${studio._id}`}
             className="inline-flex items-center gap-1 text-[13px] font-medium text-muted hover:text-primary transition-colors"
@@ -85,5 +94,8 @@ export default function StudioCard({ studio }) {
         </div>
       </div>
     </article>
+    <>
+      <BookingModal studio={studio} open={bookingOpen} onClose={() => setBookingOpen(false)} />
+    </>
   );
 }

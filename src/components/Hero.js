@@ -18,8 +18,8 @@ export default function Hero() {
     const q = form.q?.value ? form.q.value.trim() : "";
     const area = form.area?.value ? form.area.value.trim() : "";
     const params = new URLSearchParams();
-    if (q) params.set("q", q);
-    if (area) params.set("area", area);
+    if (q) params.set("search", q);
+    if (area) params.set("search", area);
     router.push("/studios" + (params.toString() ? "?" + params.toString() : ""));
   };
 
@@ -51,7 +51,7 @@ export default function Hero() {
           Now booking across Bangladesh
         </p>
 
-        <h1 className="text-[3.2rem] sm:text-7xl md:text-8xl font-extrabold leading-[0.95] tracking-[-0.05em] text-white mb-6 drop-shadow-2xl">
+        <h1 className="text-[clamp(2.2rem,9vw,7rem)] sm:text-[clamp(3rem,10vw,8rem)] font-extrabold leading-[0.92] tracking-[-0.05em] text-white mb-6 drop-shadow-2xl">
           Find the space.
           <br />
           <span className="italic font-serif text-amber-300">Make something extraordinary.</span>
