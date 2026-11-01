@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowRight, MapPin, Search, ShieldCheck, Star } from "lucide-react";
 
 const AREAS = [
@@ -9,6 +10,19 @@ const AREAS = [
 ];
 
 export default function Hero() {
+  const router = useRouter();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const q = form.q?.value ? form.q.value.trim() : "";
+    const area = form.area?.value ? form.area.value.trim() : "";
+    const params = new URLSearchParams();
+    if (q) params.set("q", q);
+    if (area) params.set("area", area);
+    router.push("/studios" + (params.toString() ? "?" + params.toString() : ""));
+  };
+
   return (
     <section aria-label="Hero" className="relative w-full min-h-[100svh] bg-[#0d0d0b] overflow-hidden flex flex-col items-center text-center px-5 pt-28 pb-12">
       {/* Background image — dimmed + dark overlay */}
@@ -48,7 +62,7 @@ export default function Hero() {
         </p>
 
         {/* Search */}
-        <form action="/studios" className="w-full max-w-2xl flex flex-col sm:flex-row gap-2 rounded-3xl border border-white/10 bg-white/[0.05] backdrop-blur p-2 text-left shadow-[0_24px_60px_-24px_rgba(231,155,35,0.35)] mb-8">
+        <form onSubmit={handleSearch} action="/studios" className="w-full max-w-2xl flex flex-col sm:flex-row gap-2 rounded-3xl border border-white/10 bg-white/[0.05] backdrop-blur p-2 text-left shadow-[0_24px_60px_-24px_rgba(231,155,35,0.35)] mb-8">
           <label className="flex flex-1 items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/[0.05]">
             <Search size={18} className="text-amber-300 shrink-0" />
             <div className="min-w-0 flex-1">
