@@ -6,25 +6,25 @@ const STEPS = [
     icon: Search,
     n: "01",
     title: "Discover Spaces",
-    copy: "Search the catalog by craft, city and budget. Every listing shows the real floor plan, gear list and hourly price — no guesswork, no phone tag.",
+    copy: "Search by craft, city and budget across Bangladesh. Every listing shows the real room, gear list and hourly rate in taka — no guesswork, no phone tag.",
   },
   {
     icon: Clock,
     n: "02",
     title: "Select Shoot Hours",
-    copy: "Drag your date into the booking modal and pick exact start and end times. The live total updates as you choose hours, deposit shown upfront.",
+    copy: "Pick your date and exact start and end times. The live total updates in BDT as you choose hours, with the refundable security deposit shown upfront.",
   },
   {
     icon: CalendarCheck,
     n: "03",
     title: "Book Instantly",
-    copy: "Confirm from your account — the studio is locked to you the moment the slot is free. Overlapping requests are auto-rejected, so double bookings can't happen.",
+    copy: "Confirm from your account — the room is locked to you the moment the slot is free. Overlapping requests are rejected server-side, so double bookings can't happen.",
   },
   {
     icon: Sparkles,
     n: "04",
     title: "Create & Produce",
-    copy: "Show up, plug in and make the thing. When the session wraps, your invoice and receipt land in My Bookings — ready to download as a PDF.",
+    copy: "Show up, plug in and make the thing. Settle with the host by bKash, Nagad or cash, then download your invoice as a PDF from My Bookings.",
   },
 ];
 
@@ -35,7 +35,7 @@ export default function HowBookingWorks() {
         <SectionHeading
           eyebrow="How Booking Works"
           title="Four steps from idea to final frame"
-          subtitle="StudioSpace handles the schedule so you can spend your energy on the work."
+          subtitle="StudioSpace handles the calendar and the paperwork, so your energy goes into the work."
         />
         <BookingSteps />
       </div>

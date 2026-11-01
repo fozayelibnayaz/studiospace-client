@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { apiRequest } from "@/lib/api";
 import { BOOKING_STATUS_STYLES } from "@/lib/constants";
+import { bdt, bdtPdf } from "@/lib/format";
 import RequireSession from "@/components/RequireSession";
 import EmptyState from "@/components/EmptyState";
 import ConfirmModal from "@/components/ConfirmModal";
@@ -120,8 +121,8 @@ function Inner() {
       const rows = [
         ["Date", b.date],
         ["Time slot", `${b.startTime} – ${b.endTime} (${b.totalHours} h)`],
-        ["Hourly rate", `$${(b.totalCost / b.totalHours).toFixed(2)} × ${b.totalHours} h`],
-        ["Security deposit", Number(b.securityDeposit) > 0 ? `$${b.securityDeposit} (refundable, billed on-site)` : "—"],
+        ["Hourly rate", `${bdtPdf(b.totalCost / b.totalHours)} × ${b.totalHours} h`],
+        ["Security deposit", Number(b.securityDeposit) > 0 ? `${bdtPdf(b.securityDeposit)} (refundable, billed on-site)` : "—"],
         ["Status", b.status],
       ];
       y += 26;
@@ -140,7 +141,7 @@ function Inner() {
       doc.setFont("helvetica", "bold");
       doc.text("Total", 56, y + 26);
       doc.setFontSize(16);
-      doc.text(`$${Number(b.totalCost).toFixed(2)}`, W - 56, y + 26, { align: "right" });
+      doc.text(bdtPdf(b.totalCost), W - 56, y + 26, { align: "right" });
 
       y += 70;
       doc.setFont("helvetica", "normal");
@@ -239,11 +240,11 @@ function Inner() {
                     {b.studioLocation}
                   </p>
                   <p className="mt-1.5 font-heading font-semibold text-lg">
-                    ${Number(b.totalCost).toFixed(2)}
+                    {bdt(b.totalCost, { decimals: true })}
                     {Number(b.securityDeposit) > 0 && (
                       <span className="text-xs font-normal text-base-content/50">
                         {" "}
-                        + ${b.securityDeposit} deposit
+                        + {bdt(b.securityDeposit)} deposit
                       </span>
                     )}
                   </p>

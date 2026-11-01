@@ -108,7 +108,7 @@ export default function ExploreStudios() {
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by studio title or location (e.g. Banani, Berlin)…"
+              placeholder="Search by studio or area (e.g. Banani, Gulshan, Chattogram)…"
               className="input input-bordered join-item w-full bg-base-200/50"
               aria-label="Search studios"
             />

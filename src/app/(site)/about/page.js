@@ -12,9 +12,9 @@ import SectionHeading from "@/components/SectionHeading";
 
 const STATS = [
   { icon: Layers, value: "5", label: "Craft categories served" },
-  { icon: Globe2, value: "6+", label: "Cities with active listings" },
+  { icon: Globe2, value: "6+", label: "Bangladeshi cities with listings" },
   { icon: Aperture, value: "100%", label: "Owner-verified studio accounts" },
-  { icon: HandCoins, value: "$0", label: "Platform commission during beta" },
+  { icon: HandCoins, value: "৳0", label: "Platform commission during beta" },
 ];
 
 export default function AboutPage() {
@@ -30,11 +30,12 @@ export default function AboutPage() {
             Every city already has the studios. We make them visible.
           </h1>
           <p className="mt-5 text-sm md:text-base text-base-content/70 leading-relaxed">
-            StudioSpace exists because brilliant work gets postponed over
-            logistics. A producer needs a blacked-out stage on Tuesday; a
-            window-soft portrait loft goes unused the same Tuesday. Our
-            platform puts both in the same calendar — honest rates, exact
-            hours, verified owners — so the shoot happens.
+            StudioSpace exists because brilliant work in Bangladesh gets
+            postponed over logistics. A producer in Tejgaon needs a
+            blacked-out stage on Tuesday; a window-soft portrait loft in
+            Dhanmondi sits unused the same Tuesday. Our platform puts both in
+            one calendar — honest taka rates, exact hours, verified owners —
+            so the shoot happens.
           </p>
         </div>
       </section>
@@ -68,7 +69,7 @@ export default function AboutPage() {
               <li className="flex gap-2.5">
                 <ArrowRight size={15} className="text-primary shrink-0 mt-0.5" />
                 Compare rooms by the criteria that matter: cyc wall size, gear,
-                ceiling height in facts, not vibes.
+                ceiling height and city — facts, not vibes.
               </li>
               <li className="flex gap-2.5">
                 <ArrowRight size={15} className="text-primary shrink-0 mt-0.5" />
@@ -78,7 +79,7 @@ export default function AboutPage() {
               <li className="flex gap-2.5">
                 <ArrowRight size={15} className="text-primary shrink-0 mt-0.5" />
                 Keep every session organised in My Bookings with downloadable
-                invoices for confirmed time.
+                PDF invoices in BDT for confirmed time.
               </li>
             </ul>
           </div>
@@ -131,7 +132,7 @@ export default function AboutPage() {
               },
               {
                 t: "Payments stay simple",
-                c: "During beta the platform adds zero commission. Studio fees are settled directly between creator and host; documents here keep the paper trail.",
+                c: "During beta the platform adds zero commission. Studio fees are settled directly with the host by bKash, Nagad or cash, and the invoice in BDT keeps the paper trail.",
               },
             ].map((v) => (
               <div key={v.t} className="card bg-base-100 border border-base-300 p-6">
@@ -147,8 +148,8 @@ export default function AboutPage() {
       <section className="section-pad px-4 sm:px-6 max-w-4xl mx-auto text-center">
         <SectionHeading
           eyebrow="Built by creators"
-          title="Made in Dhaka, used wherever hours matter"
-          subtitle="StudioSpace started with a photographer who kept losing golden hour to scheduling chaos. It now serves crews across Bangladesh and beyond — Berlin podcasters included."
+          title="Made in Dhaka, built for Bangladesh"
+          subtitle="StudioSpace started with a Dhaka photographer who kept losing golden hour to scheduling chaos. It now serves crews from Cox's Bazar to Rajshahi — and every studio between."
         />
         <div className="flex flex-wrap justify-center gap-3">
           <Link href="/studios" className="btn btn-primary">

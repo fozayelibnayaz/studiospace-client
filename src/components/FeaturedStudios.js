@@ -28,8 +28,8 @@ export default function FeaturedStudios() {
     <section className="section-pad px-4 sm:px-6 max-w-7xl mx-auto">
       <SectionHeading
         eyebrow="Featured Spaces"
-        title="Top-rated studios this season"
-        subtitle="Highest reviewed spaces across every category — from cyc-wall photo floors to mastering suites."
+        title="Top-rated studios across Bangladesh"
+        subtitle="The highest-reviewed rooms in Dhaka, Chattogram and Sylhet — from Gulshan cyc-wall floors to Lalmatia mix suites. Every rate in taka."
       />
 
       {error ? (
@@ -49,7 +49,7 @@ export default function FeaturedStudios() {
 
       <div className="text-center mt-10">
         <Link href="/studios" className="btn btn-outline btn-md px-6">
-          Browse the full catalog <ChevronRight size={16} />
+          Browse all studios <ChevronRight size={16} />
         </Link>
       </div>
     </section>

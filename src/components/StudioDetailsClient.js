@@ -16,6 +16,7 @@ import {
 import toast from "react-hot-toast";
 
 import { authClient } from "@/lib/auth-client";
+import { bdt } from "@/lib/format";
 import BookingModal from "./BookingModal";
 import WishlistButton from "./WishlistButton";
 
@@ -160,14 +161,14 @@ export default function StudioDetailsClient({ studio }) {
         {/* Right: sticky booking panel */}
         <aside className="lg:sticky lg:top-24 card bg-base-100 border border-base-300 shadow-md p-6">
           <div className="flex items-baseline gap-2">
-            <span className="font-heading font-bold text-4xl">${studio.hourlyRate}</span>
+            <span className="font-heading font-bold text-4xl">{bdt(studio.hourlyRate)}</span>
             <span className="text-base-content/55 text-sm">/ hour</span>
           </div>
 
           {Number(studio.securityDeposit) > 0 && (
             <p className="mt-2 flex items-center gap-1.5 text-sm text-base-content/60">
               <ShieldCheck size={15} className="text-success" />
-              ${studio.securityDeposit} security deposit (refundable)
+              {bdt(studio.securityDeposit)} security deposit (refundable)
             </p>
           )}
 
@@ -201,9 +202,21 @@ export default function StudioDetailsClient({ studio }) {
             </div>
           ) : (
             <button onClick={goBook} className="btn btn-primary w-full mt-6">
-              <CalendarPlus size={17} /> Book Workspace Now
+              <CalendarPlus size={17} /> Book This Studio
             </button>
           )}
+
+          <div className="mt-4 flex flex-wrap items-center gap-1.5 text-[11px]">
+            <span className="badge badge-sm bg-[#E2136E]/10 text-[#E2136E] border-[#E2136E]/25 font-semibold">
+              bKash
+            </span>
+            <span className="badge badge-sm bg-[#F7941D]/10 text-[#C86B05] border-[#F7941D]/30 font-semibold">
+              Nagad
+            </span>
+            <span className="badge badge-sm bg-base-200 border-base-300 font-medium">
+              Cash on arrival
+            </span>
+          </div>
 
           <p className="mt-4 flex items-start gap-2 text-xs text-base-content/50 leading-relaxed">
             <Clock size={14} className="shrink-0 mt-0.5 text-primary" />

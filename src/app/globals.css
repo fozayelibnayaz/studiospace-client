@@ -40,6 +40,14 @@
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Warmer paper for the light theme — a studio contact sheet, not pure white */
+[data-theme="light"] {
+  --color-base-100: #fcf9f4;
+  --color-base-200: #f5efe4;
+  --color-base-300: #e8dfd1;
+  --color-base-content: #1b1815;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -93,4 +101,81 @@ h4,
   opacity: 1 !important;
   width: 22px !important;
   border-radius: 9999px !important;
+}
+
+/* ---------- Hero motion (fast, CSS-only — no video payload) ---------- */
+@keyframes heroKenburns {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.16) translate3d(-1.5%, -1.5%, 0);
+  }
+}
+
+.hero-kenburns {
+  animation: heroKenburns 20s ease-out both;
+  will-change: transform;
+}
+
+@keyframes heroSheen {
+  0% {
+    background-position: 150% 0;
+  }
+  55%,
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+.hero-sheen {
+  background: linear-gradient(
+    105deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.09) 46%,
+    transparent 60%
+  );
+  background-size: 260% 100%;
+  animation: heroSheen 11s ease-in-out infinite;
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float-slow {
+  animation: floatY 7s ease-in-out infinite;
+}
+
+.hero-swiper .swiper-pagination {
+  bottom: 22px !important;
+  padding-inline: max(1rem, calc((100vw - 80rem) / 2 + 1.5rem));
+  text-align: left !important;
+}
+
+.hero-swiper .swiper-pagination-bullet {
+  background-color: #ffffff !important;
+  opacity: 0.35 !important;
+}
+
+.hero-swiper .swiper-pagination-bullet-active {
+  background-color: #f59e0b !important;
+  width: 26px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-kenburns,
+  .hero-sheen,
+  .float-slow {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

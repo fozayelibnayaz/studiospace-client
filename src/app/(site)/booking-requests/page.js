@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { apiRequest } from "@/lib/api";
 import { BOOKING_STATUS_STYLES } from "@/lib/constants";
+import { bdt } from "@/lib/format";
 import RequireSession from "@/components/RequireSession";
 import EmptyState from "@/components/EmptyState";
 import ConfirmModal from "@/components/ConfirmModal";
@@ -156,7 +157,7 @@ function Inner() {
                   </p>
                   <p className="text-xs text-base-content/55">
                     {b.date} · {b.startTime}–{b.endTime} ({b.totalHours} h) ·{" "}
-                    <b className="text-base-content/75">${Number(b.totalCost).toFixed(2)}</b>
+                    <b className="text-base-content/75">{bdt(b.totalCost, { decimals: true })}</b>
                   </p>
                 </div>
                 <div className="flex sm:flex-col gap-2 justify-end items-stretch">

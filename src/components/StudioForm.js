@@ -130,7 +130,7 @@ export default function StudioForm({ initial, onSubmit, submitLabel = "Create Li
             className={field}
             value={form.title}
             onChange={(e) => set("title", e.target.value)}
-            placeholder="e.g. Aperture Bay Photo Studio"
+            placeholder="e.g. Gulshan Glasshouse Photo Studio"
             maxLength={90}
           />
         </div>
@@ -171,7 +171,7 @@ export default function StudioForm({ initial, onSubmit, submitLabel = "Create Li
 
         <div>
           <label className="label pb-1" htmlFor="sf-rate">
-            <span className={labelTx}>Hourly Rate ($)</span>
+            <span className={labelTx}>Hourly Rate (৳ BDT)</span>
           </label>
           <input
             id="sf-rate"
@@ -181,13 +181,13 @@ export default function StudioForm({ initial, onSubmit, submitLabel = "Create Li
             className={field}
             value={form.hourlyRate}
             onChange={(e) => set("hourlyRate", e.target.value)}
-            placeholder="65"
+            placeholder="4500"
           />
         </div>
 
         <div>
           <label className="label pb-1" htmlFor="sf-deposit">
-            <span className={labelTx}>Security Deposit ($) <span className="text-base-content/40">(refundable)</span></span>
+            <span className={labelTx}>Security Deposit (৳ BDT) <span className="text-base-content/40">(refundable)</span></span>
           </label>
           <input
             id="sf-deposit"
@@ -197,7 +197,7 @@ export default function StudioForm({ initial, onSubmit, submitLabel = "Create Li
             className={field}
             value={form.securityDeposit}
             onChange={(e) => set("securityDeposit", e.target.value)}
-            placeholder="150"
+            placeholder="15000"
           />
         </div>
 
@@ -326,7 +326,7 @@ export default function StudioForm({ initial, onSubmit, submitLabel = "Create Li
           className={`${field} h-36 leading-relaxed`}
           value={form.overview}
           onChange={(e) => set("overview", e.target.value)}
-          placeholder="Describe the rooms, the gear renters get, floor/cargo access, house rules…"
+          placeholder="Describe the room, the gear renters get, load-in access and house rules — e.g. generator backup, lift access, parking, repaint service…"
         />
         <p className="text-xs text-base-content/45 mt-1">
           {form.overview.length} characters (minimum 60)

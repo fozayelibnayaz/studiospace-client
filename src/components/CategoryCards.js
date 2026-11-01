@@ -22,7 +22,7 @@ export default function CategoryCards() {
       <SectionHeading
         eyebrow="Categories"
         title="Browse spaces by craft"
-        subtitle="Five purpose-built categories. Pick yours and filter instantly."
+        subtitle="Five purpose-built categories, verified hosts from Dhaka to Cox's Bazar. Pick yours and filter instantly."
       />
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {CATEGORIES.map((c) => {

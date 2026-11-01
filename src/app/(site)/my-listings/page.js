@@ -7,6 +7,7 @@ import { FolderOpen, Pencil, Trash2, Plus } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { authClient } from "@/lib/auth-client";
+import { bdt } from "@/lib/format";
 import { apiRequest } from "@/lib/api";
 import RequireSession from "@/components/RequireSession";
 import EmptyState from "@/components/EmptyState";
@@ -132,7 +133,7 @@ function Inner() {
                 <h3 className="font-heading font-bold text-lg mt-1 truncate">{s.title}</h3>
                 <p className="text-sm text-base-content/60 truncate">{s.location}</p>
                 <p className="font-heading font-semibold mt-0.5">
-                  ${s.hourlyRate}
+                  {bdt(s.hourlyRate)}
                   <span className="text-xs font-normal text-base-content/55"> / hr</span>
                 </p>
               </div>

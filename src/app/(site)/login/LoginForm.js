@@ -97,7 +97,7 @@ export default function LoginForm() {
           </span>
           <h1 className="font-heading text-2xl font-bold">Welcome back</h1>
           <p className="text-sm text-base-content/60 mt-1">
-            Log in to book spaces, host listings and manage bookings.
+            Log in to book studios in Dhaka, host your own space and manage sessions.
           </p>
         </div>
 
@@ -113,7 +113,7 @@ export default function LoginForm() {
               autoComplete="email"
               value={form.email}
               onChange={onChange}
-              placeholder="you@studio.com"
+              placeholder="you@studio.com.bd"
               className="input input-bordered w-full"
             />
           </div>

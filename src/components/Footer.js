@@ -63,7 +63,7 @@ export default function Footer() {
       toast.error("Please enter a valid email address");
       return;
     }
-    toast.success("Subscribed! Studio openings will land in your inbox.");
+    toast.success("Subscribed! New Bangladeshi studios will land in your inbox.");
     setEmail("");
   };
 
@@ -81,10 +81,14 @@ export default function Footer() {
             </span>
           </Link>
           <p className="mt-4 text-sm text-base-content/70 leading-relaxed max-w-xs">
-            Our mission is simple: every city already has the creative spaces
-            it needs — they are just invisible. StudioSpace connects working
-            photographers, filmmakers, podcasters, musicians and artists with
-            verified owners who rent their spaces out by the hour.
+            Bangladesh already has the studios. StudioSpace makes them
+            bookable. We connect photographers, filmmakers, podcasters,
+            musicians and artists with verified owners in Dhaka, Chattogram,
+            Sylhet and beyond — priced in taka, reserved by the hour.
+          </p>
+          <p className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-medium text-base-content/50">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            Made in Dhaka · bKash, Nagad &amp; cash on arrival
           </p>
         </div>
 
@@ -138,7 +142,7 @@ export default function Footer() {
             Newsletter
           </h3>
           <p className="text-sm text-base-content/70 mb-3">
-            New studios on the platform, once a week. No spam.
+            New studios across Bangladesh, once a week. No spam.
           </p>
           <form onSubmit={subscribe} className="join w-full">
             <input
@@ -173,7 +177,10 @@ export default function Footer() {
 
       <div className="border-t border-base-300/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-base-content/55">
-          <p>© {new Date().getFullYear()} StudioSpace. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} StudioSpace · Dhaka, Bangladesh. All
+            rights reserved.
+          </p>
           <p className="flex items-center gap-4">
             <Link href="/about" className="hover:text-primary">Terms</Link>
             <span aria-hidden="true">·</span>

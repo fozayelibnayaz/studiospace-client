@@ -5,12 +5,12 @@ const CARDS = [
   {
     icon: ShieldCheck,
     title: "Liability Protection",
-    copy: "Every booking is covered by our shared liability policy: gear damage capped at the listed security deposit, and cancellations are transparent — hosts see nothing until you hit confirm.",
+    copy: "Every booking is covered by our shared liability policy: gear damage is capped at the listed security deposit in taka, and hosts see nothing until you hit confirm.",
   },
   {
     icon: BadgeCheck,
     title: "Verified Profiles",
-    copy: "Hosts and renters both carry photo-verified identities. Before a studio goes live we check the address, the amenities list and the hourly rate so listings describe real rooms.",
+    copy: "Hosts and renters both carry photo-verified identities. Before a studio goes live we check the Dhaka, Chattogram or Sylhet address, the amenities and the hourly rate on the ground.",
   },
   {
     icon: Wrench,
@@ -20,7 +20,7 @@ const CARDS = [
   {
     icon: Headset,
     title: "24/7 Host Support",
-    copy: "Locked out at 6am before a golden-hour shoot? Support is a message away around the clock, with a median first reply under ten minutes in Dhaka hours.",
+    copy: "Locked out at 6am before a golden-hour shoot at Cox's Bazar? Support is a message away around the clock, with a median first reply under ten minutes during Dhaka hours.",
   },
 ];
 
@@ -30,7 +30,7 @@ export default function HostGuarantee() {
       <SectionHeading
         eyebrow="Host Guarantee & Creator Support"
         title="Built to protect both sides of the studio door"
-        subtitle="Owners keep their spaces safe; creators keep their shoot days intact. Both are commitments we take seriously."
+        subtitle="Owners keep their spaces safe; creators keep their shoot days intact. Two commitments we take seriously from Gulshan to Khulshi."
       />
       <div className="grid gap-5 sm:grid-cols-2">
         {CARDS.map((c) => (

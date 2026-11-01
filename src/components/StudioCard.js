@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapPin, Star } from "lucide-react";
 
+import { bdt } from "@/lib/format";
 import WishlistButton from "./WishlistButton";
 
 const img = (studio) =>
@@ -52,7 +53,7 @@ export default function StudioCard({ studio }) {
 
         <div className="card-actions mt-auto pt-3 w-full items-center justify-between">
           <p className="font-heading font-bold text-lg">
-            ${studio.hourlyRate}
+            {bdt(studio.hourlyRate)}
             <span className="text-xs font-normal text-base-content/55"> / hr</span>
           </p>
           <span className="flex items-center">

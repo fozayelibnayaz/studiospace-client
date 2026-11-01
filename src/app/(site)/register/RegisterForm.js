@@ -114,7 +114,7 @@ export default function RegisterForm() {
           </span>
           <h1 className="font-heading text-2xl font-bold">Join StudioSpace</h1>
           <p className="text-sm text-base-content/60 mt-1">
-            One account to book studios and host your own space.
+            One account to book studios across Bangladesh and host your own room.
           </p>
         </div>
 
@@ -146,7 +146,7 @@ export default function RegisterForm() {
               autoComplete="email"
               value={form.email}
               onChange={onChange}
-              placeholder="you@studio.com"
+              placeholder="you@studio.com.bd"
               className="input input-bordered w-full"
             />
           </div>

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 
 import { authClient } from "@/lib/auth-client";
 import { apiRequest } from "@/lib/api";
+import { bdt } from "@/lib/format";
 import Modal from "./Modal";
 
 export default function BookingModal({ studio, open, onClose }) {
@@ -145,7 +146,7 @@ export default function BookingModal({ studio, open, onClose }) {
         <div className="bg-base-200/70 border border-base-300 rounded-xl p-4 space-y-1.5 text-sm">
           <p className="flex justify-between">
             <span className="text-base-content/60">Hourly rate</span>
-            <span className="font-medium">${studio.hourlyRate} / hr</span>
+            <span className="font-medium">{bdt(studio.hourlyRate)} / hr</span>
           </p>
           <p className="flex justify-between">
             <span className="text-base-content/60">Total hours</span>
@@ -156,7 +157,7 @@ export default function BookingModal({ studio, open, onClose }) {
               <Coins size={14} className="text-primary" /> Studio total
             </span>
             <span className="font-heading font-bold text-lg text-primary">
-              ${totalCost ? totalCost.toFixed(2) : "0.00"}
+              {bdt(totalCost, { decimals: true })}
             </span>
           </p>
           {Number(studio.securityDeposit) > 0 && (
@@ -164,7 +165,7 @@ export default function BookingModal({ studio, open, onClose }) {
               <span className="flex items-center gap-1.5">
                 <ShieldCheck size={13} /> Refundable security deposit
               </span>
-              <span>${studio.securityDeposit}</span>
+              <span>{bdt(studio.securityDeposit)}</span>
             </p>
           )}
         </div>

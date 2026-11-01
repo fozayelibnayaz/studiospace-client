@@ -19,12 +19,12 @@ const PILLARS = [
   {
     icon: Banknote,
     title: "Transparent pricing",
-    copy: "The hourly rate and refundable security deposit are printed on every listing. What you see in the booking modal is what you discuss with the host — no finder's fee is added.",
+    copy: "The hourly rate in taka and the refundable security deposit are printed on every listing. What you see in the booking modal is what you settle with the host — no finder's fee is added.",
   },
   {
     icon: BadgeCheck,
     title: "Owner-verified listings",
-    copy: "Studios go live only after the host account confirms ownership and the amenity list. Photos must show the actual bookable room, not a stock rep of a workspace.",
+    copy: "Studios go live only after the host account confirms ownership and the amenity list. Photos must show the actual bookable room in Dhaka, Chattogram or wherever it stands — never a stock rep.",
   },
   {
     icon: ShieldCheck,
@@ -34,7 +34,7 @@ const PILLARS = [
   {
     icon: MessageCircleHeartSafe,
     title: "Support in hours, not days",
-    copy: "Creators work odd hours; so do we. Support replies around the clock and hosts get payout help whenever they need it.",
+    copy: "Creators work odd hours; so do we. Support replies around the clock in Bangla or English, and hosts get payout help by bKash or bank transfer whenever they need it.",
   },
 ];
 
@@ -56,10 +56,10 @@ export default function HowItWorksPage() {
             From idea to invoice, without the phone tag
           </h1>
           <p className="mt-4 text-sm md:text-base text-base-content/70 leading-relaxed">
-            StudioSpace is a peer-to-peer marketplace for creative production
-            spaces. Owners publish their rooms with real rates; creators
-            discover them, reserve exact hours and produce the work. Here is
-            the whole journey.
+            StudioSpace is Bangladesh's peer-to-peer marketplace for creative
+            production spaces. Owners publish their rooms with real taka
+            rates; creators discover them, reserve exact hours and produce the
+            work. Here is the whole journey.
           </p>
         </div>
       </section>

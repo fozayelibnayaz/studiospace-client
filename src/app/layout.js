@@ -17,18 +17,36 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   title: {
-    default: "StudioSpace — Book Creative Workspaces & Production Studios",
+    default: "StudioSpace — Book Photo Studios, Film Stages & Music Rooms in Bangladesh",
     template: "%s | StudioSpace",
   },
   description:
-    "A peer-to-peer marketplace for photo studios, film stages, podcast lounges, music suites and art workshops. Discover spaces, pick your hours, book instantly.",
+    "Bangladesh's peer-to-peer marketplace for creative space. Rent photo studios, film stages, podcast lounges, music suites and art workshops in Dhaka, Chattogram, Sylhet and beyond — priced in taka, booked by the hour.",
   keywords: [
-    "studio rental",
-    "photo studio",
-    "film stage",
-    "podcast room",
-    "music studio",
-    "art workshop",
+    "studio rental Bangladesh",
+    "photo studio Dhaka",
+    "film stage Dhaka",
+    "podcast studio Dhaka",
+    "music studio Chattogram",
+    "art workshop Sylhet",
+    "creative space rental BDT",
+  ],
+  applicationName: "StudioSpace",
+  authors: [{ name: "StudioSpace" }],
+  openGraph: {
+    title: "StudioSpace — Creative studios across Bangladesh",
+    description:
+      "Photo floors, film stages, podcast lounges, music suites and art workshops. Verified hosts, taka pricing, instant hourly booking.",
+    locale: "en_BD",
+    type: "website",
+    siteName: "StudioSpace",
+  },
+};
+
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fcf9f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#18181b" },
   ],
 };
 
