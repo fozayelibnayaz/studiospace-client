@@ -38,7 +38,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero-shell grain relative" aria-label="StudioSpace introduction">
+    <section className="hero-shell grain relative overflow-hidden" aria-label="StudioSpace introduction">
       {reduceMotion ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -64,28 +64,35 @@ export default function Hero() {
         </video>
       )}
 
-      {/* Scrim: cinematic darkening + soft bottom fade, no second layer */}
+      {/* Bold amber scrim: heavy left darkening + vivid amber spotlight */}
       <div className="hero-scrim" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
-
-      {/* 3D ambience: soft amber light mass behind the headline */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full opacity-70 blur-[130px]"
-        style={{ background: "radial-gradient(circle, rgba(231,155,35,0.34) 0%, rgba(231,155,35,0) 68%)" }}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 50% at 15% 40%, rgba(231,155,35,0.55) 0%, rgba(231,155,35,0.15) 40%, transparent 70%), radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,0,0,0.85) 0%, transparent 60%)",
+        }}
       />
-      {/* 3D ambience: warm horizon glow at the base of the fold */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70" />
+
+      {/* 3D ambience: amber light mass */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 left-1/2 h-72 w-[70rem] max-w-full -translate-x-1/2 rounded-full opacity-60 blur-[140px]"
-        style={{ background: "radial-gradient(circle, rgba(231,155,35,0.22) 0%, rgba(231,155,35,0) 70%)" }}
+        className="pointer-events-none absolute -top-24 left-[10%] h-[26rem] w-[26rem] rounded-full opacity-80 blur-[120px]"
+        style={{ background: "radial-gradient(circle, rgba(231,155,35,0.6) 0%, rgba(231,155,35,0) 70%)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 right-[5%] h-80 w-80 rounded-full opacity-50 blur-[100px]"
+        style={{ background: "radial-gradient(circle, rgba(231,155,35,0.45) 0%, rgba(231,155,35,0) 70%)" }}
       />
 
-      <div className="relative container-x pt-28 pb-16 sm:pt-32 md:pt-36 md:pb-20 flex min-h-[min(92vh,880px)] flex-col justify-center">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.6fr_1fr]">
+      <div className="relative container-x pt-28 pb-16 sm:pt-32 md:pt-36 md:pb-20 flex min-h-[min(100vh,980px)] flex-col justify-center">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.6fr_1fr]">
           {/* Headline block */}
           <div className="max-w-4xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-3.5 py-1.5 text-[11px] font-medium tracking-[0.16em] uppercase text-[#f1eee5]/80 backdrop-blur-sm">
+            <p className="inline-flex items-center gap-2 rounded-full border border-[#e79b23]/40 bg-[#e79b23]/15 px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#f3c46c] backdrop-blur-sm">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-[#e79b23] opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#e79b23]" />
@@ -93,40 +100,40 @@ export default function Hero() {
               Now booking across Bangladesh
             </p>
 
-            <h1 className="display mt-6 text-[#f7f3e9] text-balance text-[2.6rem] leading-[0.98] tracking-[-0.04em] sm:text-6xl lg:text-[5.1rem]">
+            <h1 className="display mt-6 text-[#f7f3e9] text-balance text-[2.8rem] leading-[0.95] tracking-[-0.05em] sm:text-7xl lg:text-[6rem]">
               Find the space.
               <br />
               Make something{" "}
-              <span className="serif italic squiggle text-[#f1eee5]">extraordinary.</span>
+              <span className="serif italic text-[#f3c46c] drop-shadow-[0_0_24px_rgba(231,155,35,0.5)]">extraordinary.</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-[#f1eee5]/70 sm:text-base">
+            <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-[#f1eee5]/80 sm:text-base">
               Book remarkable photo studios, film stages, podcast lounges and music
               rooms from verified hosts in Dhaka, Chattogram, Sylhet and beyond.
               Real rooms, honest taka rates, exact hours.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link
                 href="/studios"
-                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#f7f3e9] px-7 text-sm font-medium text-[#141311] transition-colors hover:bg-white"
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#e79b23] px-8 text-sm font-semibold text-[#14120c] transition-all hover:bg-[#f3c46c] hover:shadow-[0_0_30px_rgba(231,155,35,0.5)]"
               >
                 Explore Studios <ArrowRight size={16} />
               </Link>
               <Link
                 href="/add-studio"
-                className="inline-flex h-12 items-center gap-2 rounded-full border border-white/25 bg-white/[0.04] px-7 text-sm font-medium text-[#f7f3e9] backdrop-blur-sm transition-colors hover:bg-white/10"
+                className="inline-flex h-12 items-center gap-2 rounded-full border border-white/30 bg-white/[0.06] px-8 text-sm font-medium text-[#f7f3e9] backdrop-blur-sm transition-colors hover:bg-white/10"
               >
                 <Play size={14} /> Host Your Space
               </Link>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs text-[#f1eee5]/60">
+            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs text-[#f1eee5]/70">
               <span className="inline-flex items-center gap-1.5">
                 <ShieldCheck size={14} className="text-[#e79b23]" />
                 Identity-verified hosts
               </span>
-              <span className="hidden h-3 w-px bg-white/15 sm:block" />
+              <span className="hidden h-3 w-px bg-white/20 sm:block" />
               <span className="inline-flex items-center gap-1.5">
                 <Sparkles size={14} className="text-[#e79b23]" />
                 5 disciplines · 12 curated rooms
@@ -138,33 +145,45 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Floating "now booking" card */}
-          <div className="hidden justify-self-end lg:block">
-            <div className="w-64 rounded-2xl border border-white/15 bg-black/35 p-4 text-[#f1eee5] backdrop-blur-xl">
-              <div className="flex items-center gap-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/studios/gulshan-glasshouse.jpg"
-                  alt="Gulshan Glasshouse Photo Studio"
-                  className="h-12 w-12 rounded-xl object-cover"
-                  loading="lazy"
-                />
-                <div className="min-w-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#e79b23]/90">
-                    Featured today
-                  </p>
-                  <p className="truncate text-[13px] font-medium">Gulshan Glasshouse</p>
-                  <p className="mt-0.5 flex items-center gap-1 text-[11px] text-[#f1eee5]/50">
-                    <MapPin size={10} /> Gulshan 1, Dhaka
-                  </p>
+          {/* 3D floating card stack */}
+          <div className="hidden lg:block" style={{ perspective: "1200px" }}>
+            <div className="relative mx-auto w-72" style={{ transformStyle: "preserve-3d", transform: "rotateY(-8deg) rotateX(4deg)" }}>
+              <div className="absolute -top-4 -left-4 w-64 rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl opacity-40" style={{ transform: "translateZ(-40px)" }}>
+                <div className="h-10 w-full rounded-lg bg-white/5" />
+                <div className="mt-3 h-3 w-3/4 rounded bg-white/10" />
+                <div className="mt-2 h-3 w-1/2 rounded bg-white/10" />
+              </div>
+              <div className="relative w-64 rounded-2xl border border-[#e79b23]/30 bg-black/40 p-4 text-[#f1eee5] backdrop-blur-xl shadow-[0_40px_80px_-20px_rgba(231,155,35,0.4)]" style={{ transform: "translateZ(0)" }}>
+                <div className="flex items-center gap-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/studios/gulshan-glasshouse.jpg"
+                    alt="Gulshan Glasshouse Photo Studio"
+                    className="h-14 w-14 rounded-xl object-cover"
+                    loading="lazy"
+                  />
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#e79b23]/90">
+                      Featured today
+                    </p>
+                    <p className="truncate text-[14px] font-medium">Gulshan Glasshouse</p>
+                    <p className="mt-0.5 flex items-center gap-1 text-[11px] text-[#f1eee5]/50">
+                      <MapPin size={10} /> Gulshan 1, Dhaka
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
+                  <span className="font-heading font-semibold text-base text-[#e79b23]">৳6,500</span>
+                  <span className="text-[#f1eee5]/45">per hour</span>
+                  <Link href="/studios" className="text-[#f1eee5] hover:text-[#e79b23]">
+                    Book
+                  </Link>
                 </div>
               </div>
-              <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
-                <span className="font-heading font-semibold text-base">৳6,500</span>
-                <span className="text-[#f1eee5]/45">per hour</span>
-                <Link href="/studios" className="text-[#e79b23] hover:underline">
-                  Book
-                </Link>
+              <div className="absolute -bottom-4 -right-4 w-64 rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl opacity-40" style={{ transform: "translateZ(-80px)" }}>
+                <div className="h-10 w-full rounded-lg bg-white/5" />
+                <div className="mt-3 h-3 w-3/4 rounded bg-white/10" />
+                <div className="mt-2 h-3 w-1/2 rounded bg-white/10" />
               </div>
             </div>
           </div>
