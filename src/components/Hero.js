@@ -51,7 +51,7 @@ export default function Hero() {
           Now booking across Bangladesh
         </p>
 
-        <h1 className="text-[clamp(2rem,7vw,5rem)] sm:text-[clamp(3rem,10vw,7rem)] font-extrabold leading-[0.92] tracking-[-0.05em] text-white mb-6 drop-shadow-2xl break-words">
+        <h1 className="text-[clamp(1.6rem,7.5vw,4.5rem)] sm:text-[clamp(2.5rem,8vw,6rem)] font-extrabold leading-[0.92] tracking-[-0.05em] text-white mb-6 drop-shadow-2xl break-words whitespace-normal">
           Find the space.
           <br />
           <span className="italic font-serif text-amber-300">Make something extraordinary.</span>
@@ -86,9 +86,9 @@ export default function Hero() {
           </button>
         </form>
 
-        <div className="flex flex-wrap items-center justify-center gap-6 text-sm font-medium mb-10">
-          <Link href="/studios" className="text-white underline decoration-amber-500 decoration-2 underline-offset-4 hover:text-amber-100">Browse all studios</Link>
-          <Link href="/add-studio" className="text-white/60 hover:text-white">Host your space</Link>
+        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm font-medium mb-10">
+          <Link href="/studios" className="text-white underline decoration-amber-500 decoration-2 underline-offset-4 hover:text-amber-100 whitespace-nowrap">Browse all studios</Link>
+          <Link href="/add-studio" className="text-white/60 hover:text-white whitespace-nowrap">Host your space</Link>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-white/50 mb-12">
