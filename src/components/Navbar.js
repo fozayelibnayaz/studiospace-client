@@ -14,6 +14,7 @@ import {
   Heart,
   LogOut,
   ChevronDown,
+  Inbox,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -33,6 +34,7 @@ const USER_MENU = [
   { href: "/add-studio", label: "Add New Studio", icon: PlusCircle },
   { href: "/my-listings", label: "My Studio Listings", icon: FolderOpen },
   { href: "/my-bookings", label: "My Bookings", icon: CalendarCheck },
+  { href: "/booking-requests", label: "Booking Requests", icon: Inbox },
   { href: "/wishlist", label: "Wishlist", icon: Heart },
 ];
 

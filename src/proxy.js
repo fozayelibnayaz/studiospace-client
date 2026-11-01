@@ -16,6 +16,7 @@ const PROTECTED = [
   "/add-studio",
   "/my-listings",
   "/my-bookings",
+  "/booking-requests",
   "/wishlist",
   "/studios/edit",
 ];
@@ -47,6 +48,7 @@ export const config = {
     "/add-studio/:path*",
     "/my-listings/:path*",
     "/my-bookings/:path*",
+    "/booking-requests/:path*",
     "/wishlist/:path*",
     "/studios/edit/:path*",
   ],
