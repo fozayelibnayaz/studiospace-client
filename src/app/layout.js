@@ -1,4 +1,4 @@
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Instrument_Serif, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 import Providers from "@/components/Providers";
@@ -12,6 +12,14 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
   display: "swap",
 });
 
@@ -45,8 +53,8 @@ export const metadata = {
 
 export const viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fcf9f4" },
-    { media: "(prefers-color-scheme: dark)", color: "#18181b" },
+    { media: "(prefers-color-scheme: light)", color: "#fbfaf5" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0d0b" },
   ],
 };
 
@@ -55,7 +63,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${instrumentSerif.variable}`}
     >
       <head>
         {/* Challenge 3: apply the persisted theme BEFORE first paint — no flash */}

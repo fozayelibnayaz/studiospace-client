@@ -23,20 +23,16 @@ export default function RequireSession({ children }) {
     }
   }, [ready, loggedIn, pathname, router]);
 
-  if (isPending) {
+  if (isPending || !loggedIn) {
     return (
-      <div className="section-pad px-4 max-w-7xl mx-auto text-center">
-        <span className="loading loading-infinity text-primary w-16" style={{ borderTopWidth: 2 }} />
-        <p className="mt-4 text-sm text-base-content/55">Checking your session…</p>
-      </div>
-    );
-  }
-
-  if (!loggedIn) {
-    return (
-      <div className="section-pad px-4 max-w-7xl mx-auto text-center">
-        <span className="loading loading-infinity text-primary w-16" style={{ borderTopWidth: 2 }} />
-        <p className="mt-4 text-sm text-base-content/55">Redirecting you to login…</p>
+      <div className="container-x pt-40 pb-32 text-center">
+        <span
+          className="inline-block h-12 w-12 animate-spin rounded-full border-2 border-base-content/15 border-t-[#e79b23]"
+          aria-hidden="true"
+        />
+        <p className="mt-5 text-sm text-muted">
+          {isPending ? "Checking your session…" : "Taking you to login…"}
+        </p>
       </div>
     );
   }

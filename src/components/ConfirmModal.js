@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import { Trash2, TriangleAlert, LoaderCircle } from "lucide-react";
-import toast from "react-hot-toast";
 
 import Modal from "./Modal";
 
@@ -22,22 +20,26 @@ export default function ConfirmModal({
 }) {
   return (
     <Modal open={open} onClose={onClose} busy={busy} width="max-w-sm">
-      <div className="p-6 text-center">
+      <div className="p-7">
         <span
-          className={`inline-grid place-items-center w-14 h-14 rounded-2xl mb-3 ${
-            destructive ? "bg-error/10 text-error" : "bg-warning/10 text-warning"
+          className={`mb-4 grid h-12 w-12 place-items-center rounded-full ${
+            destructive
+              ? "bg-error/10 text-error"
+              : "bg-[#e79b23]/12 text-[#a86a12]"
           }`}
         >
-          {destructive ? <Trash2 size={24} /> : <TriangleAlert size={24} />}
+          {destructive ? <Trash2 size={21} /> : <TriangleAlert size={21} />}
         </span>
-        <h3 className="font-heading font-bold text-lg">{title}</h3>
-        <p className="mt-2 text-sm text-base-content/65 leading-relaxed">{message}</p>
+        <h3 className="font-heading text-lg font-semibold tracking-[-0.02em]">
+          {title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{message}</p>
         <div className="mt-6 flex gap-3">
           <button
             type="button"
             onClick={onClose}
             disabled={busy}
-            className="btn btn-outline flex-1"
+            className="h-11 flex-1 rounded-full border border-base-content/15 text-[13px] font-medium transition-colors hover:bg-base-content/5 disabled:opacity-50"
           >
             Keep it
           </button>
@@ -45,9 +47,13 @@ export default function ConfirmModal({
             type="button"
             onClick={onConfirm}
             disabled={busy}
-            className={`btn flex-1 ${destructive ? "btn-error" : "btn-warning"}`}
+            className={`inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-[13px] font-medium transition-opacity hover:opacity-90 disabled:opacity-60 ${
+              destructive
+                ? "bg-error text-error-content"
+                : "bg-neutral text-neutral-content"
+            }`}
           >
-            {busy ? <LoaderCircle size={16} className="loading" /> : confirmLabel}
+            {busy ? <LoaderCircle size={15} className="animate-spin" /> : confirmLabel}
           </button>
         </div>
       </div>
