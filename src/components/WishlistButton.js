@@ -48,9 +48,9 @@ export default function WishlistButton({ studio, className = "" }) {
         type="button"
         aria-label="Loading wishlist state"
         disabled
-        className={`btn btn-sm btn-square border border-base-300 rounded-full shadow-sm ml-2 ${className}`}
+        className={`grid place-items-center w-9 h-9 rounded-full border border-white/40 bg-white/80 backdrop-blur text-[#141311] shadow-sm ${className}`}
       >
-        <span className="loading loading-spinner text-neutral-content" />
+        <span className="loading loading-spinner loading-xs" />
       </button>
     );
   }
@@ -102,11 +102,11 @@ export default function WishlistButton({ studio, className = "" }) {
       aria-pressed={saved}
       aria-label={saved ? "Remove from wishlist" : "Add to wishlist"}
       title={saved ? "Remove from wishlist" : "Add to wishlist"}
-      className={`btn btn-sm btn-square border border-base-300 rounded-full shadow-sm ml-2 ${className}`}
+      className={`grid place-items-center w-9 h-9 rounded-full border border-white/40 bg-white/80 backdrop-blur text-[#141311] shadow-sm hover:bg-white transition-colors ${className}`}
     >
       <Heart
         size={15}
-        className={saved ? "fill-error text-error" : "text-base-content/70"}
+        className={saved ? "fill-[#a33b2c] text-[#a33b2c]" : "text-[#141311]/70"}
       />
     </button>
   );

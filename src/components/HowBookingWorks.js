@@ -1,44 +1,52 @@
-import { Search, Clock, CalendarCheck, Sparkles } from "lucide-react";
+import { Search, ShieldCheck, CalendarCheck, DoorOpen } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
 const STEPS = [
   {
     icon: Search,
     n: "01",
-    title: "Discover Spaces",
-    copy: "Search by craft, city and budget across Bangladesh. Every listing shows the real room, gear list and hourly rate in taka — no guesswork, no phone tag.",
+    title: "Search the right setup",
+    copy: "Filter by craft, city, capacity and budget. Every listing shows the real room, gear list and hourly rate in taka — no guesswork, no phone tag.",
   },
   {
-    icon: Clock,
+    icon: ShieldCheck,
     n: "02",
-    title: "Select Shoot Hours",
-    copy: "Pick your date and exact start and end times. The live total updates in BDT as you choose hours, with the refundable security deposit shown upfront.",
+    title: "Know what you're getting",
+    copy: "Clear rates, verified amenities, honest reviews and a refundable deposit shown upfront. The room in the photo is the room you book.",
   },
   {
     icon: CalendarCheck,
     n: "03",
-    title: "Book Instantly",
-    copy: "Confirm from your account — the room is locked to you the moment the slot is free. Overlapping requests are rejected server-side, so double bookings can't happen.",
+    title: "Book securely",
+    copy: "Reserve exact hours with transparent BDT pricing. Overlapping requests are rejected server-side, so your slot stays exclusively yours.",
   },
   {
-    icon: Sparkles,
+    icon: DoorOpen,
     n: "04",
-    title: "Create & Produce",
-    copy: "Show up, plug in and make the thing. Settle with the host by bKash, Nagad or cash, then download your invoice as a PDF from My Bookings.",
+    title: "Walk in ready",
+    copy: "Settle with the host by bKash, Nagad or cash on arrival, coordinate load-in, and download your PDF invoice from My Bookings.",
   },
 ];
 
 export default function HowBookingWorks() {
   return (
-    <section className="section-pad px-4 sm:px-6 bg-base-200/50 border-y border-base-300/50">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeading
-          eyebrow="How Booking Works"
-          title="Four steps from idea to final frame"
-          subtitle="StudioSpace handles the calendar and the paperwork, so your energy goes into the work."
-        />
-        <BookingSteps />
-      </div>
+    <section className="section container-x">
+      <SectionHeading
+        eyebrow="From idea to action"
+        title={
+          <>
+            Booking, without the{" "}
+            <span className="serif italic">production drama.</span>
+          </>
+        }
+        subtitle="StudioSpace handles the calendar, the deposit and the paperwork, so your energy goes into the work."
+        action={
+          <span className="hidden md:block text-[11px] font-semibold uppercase tracking-[0.2em] text-faint">
+            04 steps · one afternoon
+          </span>
+        }
+      />
+      <BookingSteps />
     </section>
   );
 }
@@ -46,20 +54,24 @@ export default function HowBookingWorks() {
 /** Steps grid alone — reused on the How It Works page. */
 export function BookingSteps() {
   return (
-    <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <ol className="grid gap-px overflow-hidden rounded-2xl border border-base-content/10 bg-base-content/10 sm:grid-cols-2 lg:grid-cols-4">
       {STEPS.map((s) => (
         <li
           key={s.n}
-          className="card bg-base-100 border border-base-300 p-6 relative overflow-hidden group hover:border-primary/50 transition-colors"
+          className="group relative bg-base-100 p-6 md:p-7 transition-colors hover:bg-base-200/60"
         >
-          <span className="absolute -top-3 -right-1 font-heading font-bold text-6xl text-base-content/5 select-none">
-            {s.n}
-          </span>
-          <span className="inline-grid place-items-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-primary-content transition-colors">
-            <s.icon size={22} strokeWidth={1.9} />
-          </span>
-          <h3 className="font-heading font-bold text-base">{s.title}</h3>
-          <p className="mt-2 text-sm text-base-content/65 leading-relaxed">{s.copy}</p>
+          <div className="flex items-center justify-between">
+            <span className="grid place-items-center w-10 h-10 rounded-full border border-base-content/12 text-primary transition-colors group-hover:bg-primary group-hover:border-primary group-hover:text-primary-content">
+              <s.icon size={18} strokeWidth={1.8} />
+            </span>
+            <span className="font-heading text-xs font-semibold tracking-[0.18em] text-faint">
+              {s.n}
+            </span>
+          </div>
+          <h3 className="mt-6 font-heading text-[1.05rem] font-medium tracking-[-0.02em]">
+            {s.title}
+          </h3>
+          <p className="mt-2.5 text-[13px] leading-relaxed text-muted">{s.copy}</p>
         </li>
       ))}
     </ol>

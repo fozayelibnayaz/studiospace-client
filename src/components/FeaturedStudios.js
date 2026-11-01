@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { apiRequest } from "@/lib/api";
 import SectionHeading from "./SectionHeading";
@@ -25,32 +25,51 @@ export default function FeaturedStudios() {
   }, []);
 
   return (
-    <section className="section-pad px-4 sm:px-6 max-w-7xl mx-auto">
+    <section className="section container-x">
       <SectionHeading
-        eyebrow="Featured Spaces"
-        title="Top-rated studios across Bangladesh"
-        subtitle="The highest-reviewed rooms in Dhaka, Chattogram and Sylhet — from Gulshan cyc-wall floors to Lalmatia mix suites. Every rate in taka."
+        eyebrow="Independent studios"
+        title={
+          <>
+            Rooms with a{" "}
+            <span className="serif italic">point of view.</span>
+          </>
+        }
+        subtitle="Chosen for their light, equipment and character — not their listing count. Every room is verified, every rate is in taka."
+        action={
+          <Link
+            href="/studios"
+            className="group inline-flex items-center gap-2 text-sm font-medium border-b border-base-content/25 pb-1 hover:border-primary hover:text-primary transition-colors"
+          >
+            View all studios
+            <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+          </Link>
+        }
       />
 
       {error ? (
         <EmptyState
           title="Couldn't load studios"
-          message={error.message || "Our studio catalog is unreachable right now. Please try again shortly."}
-          ctaLabel="Try Again"
+          message={
+            error.message ||
+            "Our studio catalogue is unreachable right now. Please try again shortly."
+          }
+          ctaLabel="Try again"
           ctaHref="/"
         />
       ) : (
-        <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 md:gap-x-6">
           {studios === null
             ? Array.from({ length: 6 }, (_, i) => <StudioCardSkeleton key={i} />)
             : studios.map((s) => <StudioCard key={s._id} studio={s} />)}
         </div>
       )}
 
-      <div className="text-center mt-10">
-        <Link href="/studios" className="btn btn-outline btn-md px-6">
-          Browse all studios <ChevronRight size={16} />
-        </Link>
+      <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-base-content/10 pt-6 text-xs text-faint">
+        <p>12 curated rooms · 5 disciplines · 5 cities</p>
+        <p className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#e79b23]" />
+          New rooms added weekly
+        </p>
       </div>
     </section>
   );

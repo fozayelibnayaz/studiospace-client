@@ -1,69 +1,89 @@
 import Link from "next/link";
-import { MapPin, Star } from "lucide-react";
+import { ArrowUpRight, MapPin, Star } from "lucide-react";
 
 import { bdt } from "@/lib/format";
 import WishlistButton from "./WishlistButton";
 
-const img = (studio) =>
-  studio.image?.startsWith("http")
-    ? studio.image
-    : `https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?auto=format&fit=crop&w=900&q=80`;
+const FALLBACK_IMAGE = "/studios/gulshan-glasshouse.jpg";
+
+const imageFor = (studio) => {
+  const src = studio.image?.trim();
+  if (!src) return FALLBACK_IMAGE;
+  return src.startsWith("http") || src.startsWith("/") ? src : FALLBACK_IMAGE;
+};
+
+/** Area label without the street address — "Gulshan 1, Dhaka" not full line. */
+const areaOf = (studio) => {
+  const parts = String(studio.location || "")
+    .split(",")
+    .map((p) => p.trim())
+    .filter(Boolean);
+  return parts.length >= 2 ? parts.slice(-2).join(", ") : parts[0] || "Bangladesh";
+};
 
 /**
- * Unified studio card — used on Home (featured) and Explore grids.
- * Fixed aspect 4/3 cover image; equal heights in grid; one consistent CTA.
+ * Editorial studio card — shared by the home page, explore grid and wishlist.
+ * Image-led, quiet metadata, taka price. The heart sits outside the link
+ * so the card stays keyboard-accessible and never nests controls.
  */
 export default function StudioCard({ studio }) {
   return (
-    <Link
-      href={`/studios/${studio._id}`}
-      className="group card bg-base-100 border border-base-300 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all duration-300 h-full flex flex-col overflow-hidden"
-    >
-      <figure className="relative aspect-[4/3] overflow-hidden m-0">
-        {/* next/image is intentionally avoided for arbitrary remote showcases;
-            object-cover keeps every crop identical */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={img(studio)}
-          alt={studio.title}
-          loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <span className="absolute top-3 left-3 badge badge-primary text-xs font-semibold uppercase tracking-wide">
+    <article className="group relative flex h-full flex-col">
+      <div className="relative overflow-hidden rounded-2xl bg-base-200">
+        <Link
+          href={`/studios/${studio._id}`}
+          className="block aspect-[4/3] overflow-hidden"
+          aria-label={`View ${studio.title}`}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageFor(studio)}
+            alt={studio.title}
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
+          />
+        </Link>
+
+        <span className="pointer-events-none absolute top-3 left-3 rounded-full border border-white/25 bg-black/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.13em] text-white backdrop-blur-md">
           {studio.category}
         </span>
-      </figure>
 
-      <div className="card-body p-5 gap-2 flex-1 items-start">
-        <h3 className="card-title font-heading text-base md:text-lg leading-snug line-clamp-2 group-hover:text-primary transition-colors">
-          {studio.title}
-        </h3>
-        <p className="flex items-center gap-1.5 text-xs md:text-sm text-base-content/60">
-          <MapPin size={14} className="text-primary shrink-0" />
-          <span className="truncate">{studio.location}</span>
-        </p>
-
-        <div className="mt-1 flex items-center gap-1 text-sm">
-          <Star size={15} className="fill-warning text-warning" />
-          <span className="font-semibold">{Number(studio.rating).toFixed(1)}</span>
-          <span className="text-base-content/50 text-xs">
-            ({studio.totalReviews || 0} reviews)
-          </span>
-        </div>
-
-        <div className="card-actions mt-auto pt-3 w-full items-center justify-between">
-          <p className="font-heading font-bold text-lg">
-            {bdt(studio.hourlyRate)}
-            <span className="text-xs font-normal text-base-content/55"> / hr</span>
-          </p>
-          <span className="flex items-center">
-            <span className="text-primary font-semibold text-sm group-hover:underline underline-offset-4">
-              View Details
-            </span>
-            <WishlistButton studio={studio} />
-          </span>
+        <div className="absolute top-2.5 right-2.5">
+          <WishlistButton studio={studio} />
         </div>
       </div>
-    </Link>
+
+      <div className="flex flex-1 flex-col pt-4">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="font-heading text-[1.05rem] leading-snug font-medium tracking-[-0.02em]">
+            <Link href={`/studios/${studio._id}`} className="hover:text-primary transition-colors">
+              {studio.title}
+            </Link>
+          </h3>
+          <span className="flex items-center gap-1 text-xs text-muted shrink-0 pt-1">
+            <Star size={12} className="fill-[#e79b23] text-[#e79b23]" />
+            {Number(studio.rating || 0).toFixed(1)}
+          </span>
+        </div>
+
+        <p className="mt-1.5 flex items-center gap-1.5 text-[13px] text-muted">
+          <MapPin size={13} className="shrink-0 text-[#e79b23]" />
+          <span className="truncate">{areaOf(studio)}</span>
+        </p>
+
+        <div className="mt-auto pt-4 flex items-end justify-between gap-3 border-t border-base-content/10 mt-4">
+          <p className="font-heading font-semibold text-[1.05rem]">
+            {bdt(studio.hourlyRate)}
+            <span className="text-xs font-normal text-faint"> / hour</span>
+          </p>
+          <Link
+            href={`/studios/${studio._id}`}
+            className="inline-flex items-center gap-1 text-[13px] font-medium text-muted hover:text-primary transition-colors"
+          >
+            View <ArrowUpRight size={14} />
+          </Link>
+        </div>
+      </div>
+    </article>
   );
 }
