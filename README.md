@@ -78,7 +78,7 @@ npm run dev                     # http://localhost:3000
 
 ## ☁️ Deployment (Vercel)
 
-1. Deploy the API first (see the server repo's `render.yaml`) and copy its public URL.
+1. Deploy the API first (Vercel, `api/index.js` + `vercel.json` in the server repo) and copy its public URL.
 2. Vercel → **New Project** → import this repo (framework auto-detected as Next.js).
 3. Add the environment variables from `.env.local`, with production values:
    - `NEXT_PUBLIC_SERVER_URL` → the deployed API origin (no trailing slash)
