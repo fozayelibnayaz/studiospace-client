@@ -29,7 +29,6 @@ const areaOf = (studio) => {
  * so the card stays keyboard-accessible and never nests controls.
  */
 function StudioCard({ studio, bookingOpen, setBookingOpen }) {
-  const [bookingOpen, setBookingOpen] = useState(false);
   return (
     <article className="group relative flex h-full flex-col">
       <div className="relative overflow-hidden rounded-2xl bg-base-200">
@@ -101,7 +100,7 @@ function StudioCardWrapper({ studio }) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <StudioCardInner studio={studio} bookingOpen={open} setBookingOpen={setOpen} />
+      <StudioCard studio={studio} bookingOpen={open} setBookingOpen={setOpen} />
       <BookingModal studio={studio} open={open} onClose={() => setOpen(false)} />
     </>
   );
