@@ -65,6 +65,16 @@ function Inner() {
         </header>
 
         <div className="mt-8 rounded-[1.5rem] border border-base-content/10 p-6 md:p-8">
+          <div className="mb-6 flex flex-wrap gap-x-8 gap-y-2 rounded-xl border border-base-content/10 bg-base-200/50 px-4 py-3 text-[12.5px]">
+            <p>
+              <span className="text-muted">Host name: </span>
+              <b className="font-medium">{session.user.name}</b>
+            </p>
+            <p>
+              <span className="text-muted">Host email: </span>
+              <b className="font-medium">{session.user.email}</b>
+            </p>
+          </div>
           <StudioForm onSubmit={submit} submitLabel="Create listing" busy={busy} />
         </div>
       </div>

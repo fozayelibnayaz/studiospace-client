@@ -25,9 +25,9 @@ import { serverBaseUrl } from "@/lib/constants";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/studios", label: "Studios" },
-  { href: "/how-it-works", label: "How it works" },
-  { href: "/about", label: "About" },
+  { href: "/studios", label: "Explore Studios" },
+  { href: "/how-it-works", label: "How It Works" },
+  { href: "/about", label: "About Us" },
 ];
 
 const USER_MENU = [
@@ -103,7 +103,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-5 pointer-events-none">
+    <header className="sticky top-0 z-50 pt-3 sm:pt-5 pointer-events-none">
       <div className="container-x flex justify-center">
         <nav
           aria-label="Primary"
