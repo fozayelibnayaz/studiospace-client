@@ -314,11 +314,17 @@ export default function Navbar() {
             )}
 
             {!user && !isPending && (
-              <div className="p-3 pt-0 border-t border-base-content/10 flex gap-2">
-                <Link href="/login" className="btn btn-outline flex-1 rounded-full">
+              <div className="grid grid-cols-2 gap-2 p-3 pt-0 border-t border-base-content/10">
+                <Link
+                  href="/login"
+                  className="inline-flex h-10 items-center justify-center rounded-full border border-base-content/20 text-[13px] font-medium transition-colors hover:bg-base-content/5"
+                >
                   Log in
                 </Link>
-                <Link href="/register" className="btn btn-primary flex-1 rounded-full">
+                <Link
+                  href="/register"
+                  className="inline-flex h-10 items-center justify-center rounded-full bg-neutral text-[13px] font-medium text-neutral-content transition-opacity hover:opacity-90"
+                >
                   Create account
                 </Link>
               </div>
