@@ -81,6 +81,7 @@ function StudioCard({ studio, bookingOpen, setBookingOpen }) {
           <button
             onClick={() => setBookingOpen(true)}
             className="inline-flex items-center gap-1 rounded-full bg-amber-500 text-[#14120c] font-bold text-xs px-3 py-1.5 hover:bg-amber-400 transition shadow-md shadow-amber-900/20 whitespace-nowrap"
+            onClick={() => setBookingOpen?.(true)}
           >
             Book now
           </button>
